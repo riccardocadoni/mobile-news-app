@@ -1,5 +1,6 @@
 export type RootStackParamList = {
   Root: undefined;
+  Auth: undefined;
   NotFound: undefined;
 };
 
@@ -19,4 +20,8 @@ export type ExploreParamList = {
 
 export type ProfileParamList = {
   ProfileScreen: undefined;
+};
+
+export type AuthParamList = {
+  AuthScreen: undefined;
 };
