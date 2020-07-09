@@ -8,16 +8,33 @@ import firebase from "../firebase";
   Log in/out thunks don't directly changes the authenticated value 
   of the auth slice because it's handled by useFirebaseAuth hooks 
   */
-export const logUserIn = createAsyncThunk(
-  "auth/login",
-  async (credentials: { email: string; psw: string }) => {
+
+interface ErrorMessage {
+  errorMessage: string;
+}
+type LoginReturn = any;
+interface Credential {
+  email: string;
+  psw: string;
+}
+
+export const logUserIn = createAsyncThunk<
+  LoginReturn,
+  Credential,
+  {
+    rejectValue: ErrorMessage;
+  }
+>("auth/login", async (credentials, thunkApi) => {
+  try {
     const response = await firebase
       .auth()
       .signInWithEmailAndPassword(credentials.email, credentials.psw);
 
     return response.user?.email;
+  } catch (error) {
+    return thunkApi.rejectWithValue(error.message);
   }
-);
+});
 
 export const logUserOut = createAsyncThunk("auth/logout", async () => {
   const response = await firebase.auth().signOut();
@@ -44,13 +61,16 @@ export const authSlice = createSlice({
     logOut: (state) => {
       state.authenticated = false;
     },
+    deleteErrorMessage: (state) => {
+      state.errorMessage = null;
+    },
   },
   extraReducers: {
     [logUserIn.fulfilled.type]: (state) => {
       state.isLoading = false;
     },
-    [logUserIn.rejected.type]: (state) => {
-      (state.isLoading = false), (state.errorMessage = "Errore");
+    [logUserIn.rejected.type]: (state, action) => {
+      (state.isLoading = false), (state.errorMessage = action.payload);
     },
     [logUserIn.pending.type]: (state) => {
       state.isLoading = true;
@@ -59,7 +79,7 @@ export const authSlice = createSlice({
 });
 
 //reducers
-export const { logIn, logOut } = authSlice.actions;
+export const { logIn, logOut, deleteErrorMessage } = authSlice.actions;
 
 //selectors
 export const selectAuthenticated = (state: RootState) =>

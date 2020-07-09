@@ -1,18 +1,25 @@
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 
-import { TouchableOpacity, TextInput } from "react-native";
+import { TouchableOpacity, TextInput, ActivityIndicator } from "react-native";
 import { Text, View } from "../components/Themed";
 
-import { logUserIn } from "../redux/authSlice";
-import { useDispatch } from "react-redux";
+import {
+  logUserIn,
+  deleteErrorMessage,
+  selectErrorMessage,
+  selectIsLoading,
+} from "../redux/authSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState<string>("");
   const [psw, setPsw] = useState<string>("");
   const dispatch = useDispatch();
-
+  const errorMessage = useSelector(selectErrorMessage);
+  const isLoading = useSelector(selectIsLoading);
   const handleLogin = () => {
+    dispatch(deleteErrorMessage());
     dispatch(logUserIn({ email, psw }));
   };
 
@@ -34,6 +41,8 @@ export default function LoginScreen() {
         secureTextEntry={true}
         value={psw}
       />
+      {errorMessage && <Text style={styles.errorText}>{errorMessage}</Text>}
+      {isLoading && <ActivityIndicator></ActivityIndicator>}
       <TouchableOpacity style={styles.createButton} onPress={handleLogin}>
         <Text>Login</Text>
       </TouchableOpacity>
@@ -74,5 +83,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     margin: 10,
     padding: 10,
+  },
+  errorText: {
+    fontSize: 15,
+    color: "red",
   },
 });

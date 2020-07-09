@@ -11,7 +11,6 @@ export default function useFirebaseAuth() {
     const firebaseListener = firebase
       .auth()
       .onAuthStateChanged(async (user) => {
-        console.log("auth state changed");
         if (user) {
           // User is signed in.
           dispatch(logIn());

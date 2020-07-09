@@ -41,7 +41,6 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   const isLoggedIn = useSelector(selectAuthenticated);
-  console.log("isLogged", isLoggedIn);
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       {isLoggedIn ? (
