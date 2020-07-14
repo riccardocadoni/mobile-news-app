@@ -51,12 +51,13 @@ export const authSlice = createSlice({
   name: "auth",
   initialState: {
     authenticated: false,
-    isLoading: false,
+    isLoading: true,
     errorMessage: null,
   } as initialAuthState,
   reducers: {
     logIn: (state) => {
       state.authenticated = true;
+      state.isLoading = false;
     },
     logOut: (state) => {
       state.authenticated = false;

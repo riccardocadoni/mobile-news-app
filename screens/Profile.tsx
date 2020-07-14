@@ -13,7 +13,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 //custom components
 import CreatorCard from "../components/profile/CreatorCard";
-import { forModalPresentationIOS } from "@react-navigation/stack/lib/typescript/src/TransitionConfigs/CardStyleInterpolators";
 
 export default function ProfileScreen() {
   const dispatch = useDispatch();

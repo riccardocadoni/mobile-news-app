@@ -12,10 +12,12 @@ import { RootStackParamList } from "../types";
 import BottomTabNavigator from "./BottomTabNavigator";
 import AuthProcess from "./AuthProcess";
 import LinkingConfiguration from "./LinkingConfiguration";
-
+//redux
 import { useSelector } from "react-redux";
-import { selectAuthenticated } from "../redux/authSlice";
+import { selectAuthenticated, selectIsLoading } from "../redux/authSlice";
 import useFirebaseAuth from "../hooks/useFirebaseAuth";
+//custom component
+import Loading from "../components/Loading";
 
 type NavigationProps = {
   colorScheme: ColorSchemeName;
@@ -41,6 +43,10 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   const isLoggedIn = useSelector(selectAuthenticated);
+  const isLoading = useSelector(selectIsLoading);
+
+  if (isLoading) return <Loading></Loading>;
+
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       {isLoggedIn ? (
