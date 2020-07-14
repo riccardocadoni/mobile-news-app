@@ -1,36 +1,111 @@
-import * as React from 'react';
-import { StyleSheet } from 'react-native';
-
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+import * as React from "react";
+import { StyleSheet, Image, ActivityIndicator } from "react-native";
+import firebase from "../firebase";
+import { Text, View } from "../components/Themed";
+import { TouchableOpacity } from "react-native";
+//redux
+import { logUserOut } from "../redux/authSlice";
+import {
+  getFollowingData,
+  selectFollowing,
+  selectIsLoading,
+} from "../redux/followingSlice";
+import { useDispatch, useSelector } from "react-redux";
+//custom components
+import CreatorCard from "../components/profile/CreatorCard";
+import { forModalPresentationIOS } from "@react-navigation/stack/lib/typescript/src/TransitionConfigs/CardStyleInterpolators";
 
 export default function ProfileScreen() {
+  const dispatch = useDispatch();
+  const user = firebase.auth().currentUser;
+
+  const url: string | undefined = user?.photoURL ? user.photoURL : undefined;
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Profile</Text>
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
-      <EditScreenInfo path="/screens/ProfileScreen.tsx" />
+      <View style={styles.profileInfoContainer}>
+        <Image source={{ uri: url }} style={styles.imageProfile} />
+        <View style={styles.textInfoContainer}>
+          <Text style={styles.text}>{user?.displayName}</Text>
+          <Text style={styles.text}>{user?.email}</Text>
+          <TouchableOpacity
+            style={styles.logOutBtn}
+            onPress={() => {
+              dispatch(logUserOut());
+            }}
+          >
+            <Text>LogOut</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      <Following user={user}></Following>
     </View>
   );
 }
 
+export interface FollowingProps {
+  user: firebase.User | null;
+}
+
+const Following: React.SFC<FollowingProps> = ({ user }) => {
+  const dispatch = useDispatch();
+  const following = useSelector(selectFollowing);
+  const isLoading = useSelector(selectIsLoading);
+  const uid = user?.uid;
+
+  React.useEffect(() => {
+    if (!following) dispatch(getFollowingData({ uid }));
+  }, []);
+
+  return (
+    <View style={styles.followingInfoContainer}>
+      <Text style={styles.text}>Your Following: {following?.length}</Text>
+      <View style={styles.cardsContainer}>
+        {isLoading && <ActivityIndicator></ActivityIndicator>}
+        {following?.map((creator) => (
+          <CreatorCard
+            key={creator.creatorId}
+            firstName={creator.firstName}
+            lastName={creator.lastName}
+            creatorId={creator.creatorId}
+            profilePic={creator.profilePic}
+          ></CreatorCard>
+        ))}
+      </View>
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
-  title: {
+  profileInfoContainer: {
+    flexDirection: "row",
+    backgroundColor: "#9FA8DA",
+    padding: 30,
+  },
+  textInfoContainer: { backgroundColor: "#9FA8DA" },
+  followingInfoContainer: {
+    flex: 1,
+  },
+  cardsContainer: {
+    flexDirection: "row",
+  },
+  text: {
     fontSize: 20,
-    fontWeight: 'bold',
+    margin: 10,
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+  imageProfile: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    margin: 20,
+  },
+  logOutBtn: {
+    alignItems: "center",
+    backgroundColor: "orange",
+    padding: 10,
+    borderRadius: 10,
   },
 });

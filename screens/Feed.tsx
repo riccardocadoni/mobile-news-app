@@ -1,25 +1,12 @@
 import * as React from "react";
 import { StyleSheet } from "react-native";
 
-import { TouchableOpacity } from "react-native";
 import { Text, View } from "../components/Themed";
 
-import { logUserOut } from "../redux/authSlice";
-import { useSelector, useDispatch } from "react-redux";
 export default function FeedScreen() {
-  const dispatch = useDispatch();
-
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Feed</Text>
-      <TouchableOpacity
-        style={styles.createButton}
-        onPress={() => {
-          dispatch(logUserOut());
-        }}
-      >
-        <Text>LogOut</Text>
-      </TouchableOpacity>
     </View>
   );
 }
