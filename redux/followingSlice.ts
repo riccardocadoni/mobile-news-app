@@ -73,9 +73,6 @@ export const followingSlice = createSlice({
   reducers: {},
   extraReducers: {
     [getFollowingData.fulfilled.type]: (state, { payload }) => {
-      {
-        console.log("payload", payload);
-      }
       (state.isLoading = false), (state.following = payload);
     },
     [getFollowingData.rejected.type]: (state, { payload }) => {

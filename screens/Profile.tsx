@@ -12,7 +12,7 @@ import {
 } from "../redux/followingSlice";
 import { useDispatch, useSelector } from "react-redux";
 //custom components
-import CreatorCard from "../components/profile/CreatorCard";
+import CreatorCard from "../components/CreatorCard";
 
 export default function ProfileScreen() {
   const dispatch = useDispatch();

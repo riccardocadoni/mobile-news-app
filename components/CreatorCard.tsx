@@ -16,7 +16,7 @@ const CreatorCard: React.SFC<CreatorCardProps> = ({
 }) => {
   const pic = profilePic
     ? { uri: profilePic }
-    : require("../../assets/images/favicon.png");
+    : require("../assets/images/favicon.png");
   return (
     <View style={styles.container}>
       <Image source={pic} style={styles.imageProfile} />
