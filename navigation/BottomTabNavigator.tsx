@@ -1,20 +1,19 @@
-import { Ionicons } from "@expo/vector-icons";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createStackNavigator } from "@react-navigation/stack";
-import * as React from "react";
+import { Ionicons } from '@expo/vector-icons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+import * as React from 'react';
 
-import Colors from "../constants/Colors";
-import useColorScheme from "../hooks/useColorScheme";
-import Feed from "../screens/Feed";
-import Explore from "../screens/Explore";
-import Profile from "../screens/Profile";
-import CreatorProfile from "../screens/CreatorProfile";
+import Colors from '../constants/Colors';
+import useColorScheme from '../hooks/useColorScheme';
+import Feed from '../screens/Feed';
+import Explore from '../screens/Explore';
+import Profile from '../screens/Profile';
 import {
   BottomTabParamList,
   FeedParamList,
   ExploreParamList,
   ProfileParamList,
-} from "../types";
+} from '../types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -73,7 +72,7 @@ function FeedNavigator() {
       <FeedStack.Screen
         name="Feed"
         component={Feed}
-        options={{ headerTitle: "Feed" }}
+        options={{ headerTitle: 'Feed' }}
       />
     </FeedStack.Navigator>
   );
@@ -87,12 +86,7 @@ function ProfileNavigator() {
       <ProfileStack.Screen
         name="Profile"
         component={Profile}
-        options={{ headerTitle: "Profile" }}
-      />
-      <ExploreStack.Screen
-        name="CreatorProfile"
-        component={CreatorProfile}
-        options={{ headerTitle: "CreatorProfile" }}
+        options={{ headerTitle: 'Profile' }}
       />
     </ProfileStack.Navigator>
   );
@@ -106,12 +100,7 @@ function ExploreNavigator() {
       <ExploreStack.Screen
         name="Explore"
         component={Explore}
-        options={{ headerTitle: "Explore" }}
-      />
-      <ExploreStack.Screen
-        name="CreatorProfile"
-        component={CreatorProfile}
-        options={{ headerTitle: "CreatorProfile" }}
+        options={{ headerTitle: 'Explore' }}
       />
     </ExploreStack.Navigator>
   );

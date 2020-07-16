@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { RootState } from "./store";
-import firebase from "../firebase";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { RootState } from './store';
+import firebase from '../firebase';
 
 //thunks
 
@@ -24,7 +24,7 @@ export const logUserIn = createAsyncThunk<
   {
     rejectValue: ErrorMessage;
   }
->("auth/login", async (credentials, thunkApi) => {
+>('auth/login', async (credentials, thunkApi) => {
   try {
     const response = await firebase
       .auth()
@@ -36,7 +36,7 @@ export const logUserIn = createAsyncThunk<
   }
 });
 
-export const logUserOut = createAsyncThunk("auth/logout", async () => {
+export const logUserOut = createAsyncThunk('auth/logout', async () => {
   const response = await firebase.auth().signOut();
   return response;
 });
@@ -48,7 +48,7 @@ export type initialAuthState = {
 };
 
 export const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState: {
     authenticated: false,
     isLoading: true,
@@ -61,6 +61,7 @@ export const authSlice = createSlice({
     },
     logOut: (state) => {
       state.authenticated = false;
+      state.isLoading = false;
     },
     deleteErrorMessage: (state) => {
       state.errorMessage = null;
