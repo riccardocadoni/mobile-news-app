@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 import firebase from "../firebase";
+//type
+import { creatorDataType } from "./contentSlice";
 
 //thunks
 
@@ -44,38 +46,22 @@ export const getFollowingData = createAsyncThunk<
   }
 });
 
-/* export const logUserOut = createAsyncThunk("auth/logout", async () => {
-  const response = await firebase.auth().signOut();
-  return response;
-}); */
-
-interface followingData {
-  firstName: string;
-  lastName: string;
-  fields?: string[];
-  creatorId: string;
-  profilePic?: string;
-}
-
-interface initialFollowingState {
-  following: followingData[] | null;
+interface initialProfileState {
+  following: creatorDataType[] | null;
   isLoading: boolean;
   errorMessage: string | null;
 }
 
-export const followingSlice = createSlice({
-  name: "following",
+export const profileSlice = createSlice({
+  name: "profile",
   initialState: {
     following: null,
     isLoading: false,
     errorMessage: null,
-  } as initialFollowingState,
+  } as initialProfileState,
   reducers: {},
   extraReducers: {
     [getFollowingData.fulfilled.type]: (state, { payload }) => {
-      {
-        console.log("payload", payload);
-      }
       (state.isLoading = false), (state.following = payload);
     },
     [getFollowingData.rejected.type]: (state, { payload }) => {
@@ -88,7 +74,7 @@ export const followingSlice = createSlice({
 });
 
 //selectors
-export const selectFollowing = (state: RootState) => state.following.following;
+export const selectFollowing = (state: RootState) => state.profile.following;
 export const selectErrorMessage = (state: RootState) =>
-  state.following.errorMessage;
-export const selectIsLoading = (state: RootState) => state.following.isLoading;
+  state.profile.errorMessage;
+export const selectIsLoading = (state: RootState) => state.profile.isLoading;

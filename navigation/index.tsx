@@ -50,7 +50,7 @@ function RootNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       {isLoggedIn ? (
-        <Stack.Screen name="Root" component={BottomTabNavigator} />
+        <Stack.Screen name="TabNavigator" component={BottomTabNavigator} />
       ) : (
         <Stack.Screen name="Auth" component={AuthProcess} />
       )}

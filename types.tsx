@@ -1,5 +1,8 @@
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RouteProp } from "@react-navigation/native";
+
 export type RootStackParamList = {
-  Root: undefined;
+  TabNavigator: undefined;
   Auth: undefined;
   NotFound: undefined;
 };
@@ -11,17 +14,33 @@ export type BottomTabParamList = {
 };
 
 export type FeedParamList = {
-  FeedScreen: undefined;
+  Feed: undefined;
 };
 
 export type ExploreParamList = {
-  ExploreScreen: undefined;
+  Explore: undefined;
+  CreatorProfile: { cid: string };
 };
 
 export type ProfileParamList = {
-  ProfileScreen: undefined;
+  Profile: undefined;
+  CreatorProfile: { cid: string };
 };
 
 export type AuthParamList = {
-  AuthScreen: undefined;
+  Auth: undefined;
 };
+
+export type ProfileNavigationProp = StackNavigationProp<
+  ProfileParamList,
+  "Profile"
+>;
+
+export type ExploreNavigationProp = StackNavigationProp<
+  ExploreParamList,
+  "Explore"
+>;
+export type CreatorProfileRouteProp = RouteProp<
+  ExploreParamList,
+  "CreatorProfile"
+>;
