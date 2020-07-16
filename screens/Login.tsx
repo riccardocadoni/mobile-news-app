@@ -12,7 +12,7 @@ import {
 } from "../redux/authSlice";
 import { useSelector, useDispatch } from "react-redux";
 
-export default function LoginScreen() {
+export default function Login() {
   const [email, setEmail] = useState<string>("");
   const [psw, setPsw] = useState<string>("");
   const dispatch = useDispatch();

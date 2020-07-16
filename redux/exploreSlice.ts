@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 import firebase from "../firebase";
+//type
+import { creatorDataType } from "./contentSlice";
 
 //thunks
 
@@ -33,16 +35,8 @@ export const getAllCreators = createAsyncThunk<
   }
 });
 
-interface creatorsData {
-  firstName: string;
-  lastName: string;
-  fields?: string[];
-  creatorId: string;
-  profilePic?: string;
-}
-
 interface initialExploreState {
-  creators: creatorsData[] | null;
+  creators: creatorDataType[] | null;
   isLoading: boolean;
   errorMessage: string | null;
 }

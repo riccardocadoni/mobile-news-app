@@ -3,23 +3,28 @@ import { StyleSheet, Image, ActivityIndicator } from "react-native";
 import firebase from "../firebase";
 import { Text, View } from "../components/Themed";
 import { TouchableOpacity } from "react-native";
+//type
+import { ProfileNavigationProp } from "../types";
 //redux
 import { logUserOut } from "../redux/authSlice";
 import {
   getFollowingData,
   selectFollowing,
   selectIsLoading,
-} from "../redux/followingSlice";
+} from "../redux/profileSlice";
 import { useDispatch, useSelector } from "react-redux";
 //custom components
 import CreatorCard from "../components/CreatorCard";
 
-export default function ProfileScreen() {
+export interface ProfileProps {
+  navigation: ProfileNavigationProp;
+}
+
+const Profile: React.SFC<ProfileProps> = ({ navigation }) => {
   const dispatch = useDispatch();
   const user = firebase.auth().currentUser;
 
   const url: string | undefined = user?.photoURL ? user.photoURL : undefined;
-
   return (
     <View style={styles.container}>
       <View style={styles.profileInfoContainer}>
@@ -37,16 +42,19 @@ export default function ProfileScreen() {
           </TouchableOpacity>
         </View>
       </View>
-      <Following user={user}></Following>
+      <Following user={user} navigation={navigation}></Following>
     </View>
   );
-}
+};
+
+export default Profile;
 
 export interface FollowingProps {
   user: firebase.User | null;
+  navigation: ProfileNavigationProp;
 }
 
-const Following: React.SFC<FollowingProps> = ({ user }) => {
+const Following: React.SFC<FollowingProps> = ({ user, navigation }) => {
   const dispatch = useDispatch();
   const following = useSelector(selectFollowing);
   const isLoading = useSelector(selectIsLoading);
@@ -68,6 +76,11 @@ const Following: React.SFC<FollowingProps> = ({ user }) => {
             lastName={creator.lastName}
             creatorId={creator.creatorId}
             profilePic={creator.profilePic}
+            goCreatorProfile={(cid: string) =>
+              navigation.navigate("CreatorProfile", {
+                cid: cid,
+              })
+            }
           ></CreatorCard>
         ))}
       </View>

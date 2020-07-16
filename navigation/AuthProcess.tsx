@@ -10,7 +10,7 @@ export default function AuthNavigator() {
   return (
     <AuthStack.Navigator>
       <AuthStack.Screen
-        name="AuthScreen"
+        name="Auth"
         component={Login}
         options={{ headerTitle: "Login" }}
       />

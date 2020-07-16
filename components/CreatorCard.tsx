@@ -1,5 +1,11 @@
 import * as React from "react";
-import { View, Image, Text, StyleSheet } from "react-native";
+import {
+  View,
+  Image,
+  Text,
+  StyleSheet,
+  TouchableWithoutFeedback,
+} from "react-native";
 
 export interface CreatorCardProps {
   firstName: string;
@@ -7,21 +13,26 @@ export interface CreatorCardProps {
   fields?: string[];
   creatorId: string;
   profilePic?: string;
+  goCreatorProfile: (cid: string) => void;
 }
 
 const CreatorCard: React.SFC<CreatorCardProps> = ({
   firstName,
   lastName,
   profilePic,
+  creatorId,
+  goCreatorProfile,
 }) => {
   const pic = profilePic
     ? { uri: profilePic }
     : require("../assets/images/favicon.png");
   return (
-    <View style={styles.container}>
-      <Image source={pic} style={styles.imageProfile} />
-      <Text style={styles.text}>{firstName + " " + lastName}</Text>
-    </View>
+    <TouchableWithoutFeedback onPress={() => goCreatorProfile(creatorId)}>
+      <View style={styles.container}>
+        <Image source={pic} style={styles.imageProfile} />
+        <Text style={styles.text}>{firstName + " " + lastName}</Text>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
