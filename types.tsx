@@ -1,8 +1,9 @@
-import { StackNavigationProp } from "@react-navigation/stack";
-import { RouteProp } from "@react-navigation/native";
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/native';
 
 export type RootStackParamList = {
   TabNavigator: undefined;
+  CreatorProfile: { cid: string };
   Auth: undefined;
   NotFound: undefined;
 };
@@ -33,14 +34,14 @@ export type AuthParamList = {
 
 export type ProfileNavigationProp = StackNavigationProp<
   ProfileParamList,
-  "Profile"
+  'Profile'
 >;
 
 export type ExploreNavigationProp = StackNavigationProp<
   ExploreParamList,
-  "Explore"
+  'Explore'
 >;
 export type CreatorProfileRouteProp = RouteProp<
   ExploreParamList,
-  "CreatorProfile"
+  'CreatorProfile'
 >;
