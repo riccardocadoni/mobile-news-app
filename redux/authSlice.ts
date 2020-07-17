@@ -61,6 +61,7 @@ export const authSlice = createSlice({
     },
     logOut: (state) => {
       state.authenticated = false;
+      state.isLoading = false;
     },
     deleteErrorMessage: (state) => {
       state.errorMessage = null;
