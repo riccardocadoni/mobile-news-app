@@ -1,12 +1,13 @@
-import * as React from "react";
+import * as React from 'react';
 import {
   View,
   Image,
   Text,
   StyleSheet,
   TouchableWithoutFeedback,
-} from "react-native";
-import { creatorContentType } from "../redux/contentSlice";
+} from 'react-native';
+import { creatorContentType } from '../redux/contentSlice';
+import TimeAgo from 'react-native-timeago';
 
 export interface CreatorContentCardProps extends creatorContentType {
   // goCreatorProfile: (cid: string) => void;
@@ -24,13 +25,23 @@ const CreatorContentCard: React.SFC<CreatorContentCardProps> = ({
 }) => {
   const pic = coverUrl
     ? { uri: coverUrl }
-    : require("../assets/images/favicon.png");
+    : require('../assets/images/favicon.png');
+
   return (
     <TouchableWithoutFeedback /*  onPress={() => goCreatorProfile(creatorId)} */
     >
       <View style={styles.container}>
-        <Image source={pic} style={styles.imageProfile} />
-        <Text style={styles.text}>{title}</Text>
+        <View style={styles.imageContainer}>
+          <Image source={pic} style={styles.imageProfile} />
+        </View>
+        <View style={styles.dataContainer}>
+          <Text style={styles.title} numberOfLines={3}>
+            {title}
+          </Text>
+          <Text style={styles.date}>
+            <TimeAgo time={JSON.parse(createdAt)}></TimeAgo>
+          </Text>
+        </View>
       </View>
     </TouchableWithoutFeedback>
   );
@@ -39,16 +50,33 @@ const CreatorContentCard: React.SFC<CreatorContentCardProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "cyan",
+    margin: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   imageProfile: {
-    width: 50,
-    height: 50,
+    width: 90,
+    height: 80,
+    borderRadius: 10,
+  },
+  title: {
+    fontSize: 15,
+    fontWeight: 'bold',
+  },
+  date: {
+    fontSize: 15,
+  },
+  imageContainer: {
+    flex: 1,
+    alignItems: 'center',
     margin: 20,
   },
-  text: {
-    fontSize: 10,
+  dataContainer: {
+    textAlign: 'center',
     margin: 10,
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    flex: 3,
   },
 });
 

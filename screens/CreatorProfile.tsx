@@ -1,8 +1,8 @@
-import * as React from "react";
-import { StyleSheet, Image, ActivityIndicator } from "react-native";
-import { Text, View } from "../components/Themed";
-import { TouchableOpacity } from "react-native";
-import { CreatorProfileRouteProp } from "../types";
+import * as React from 'react';
+import { StyleSheet, Image, ActivityIndicator } from 'react-native';
+import { Text, View } from '../components/Themed';
+import { TouchableOpacity, FlatList } from 'react-native';
+import { CreatorProfileRouteProp } from '../types';
 //redux
 import {
   getCreatorInfo,
@@ -11,10 +11,10 @@ import {
   selectIsLoading,
   creatorInfoType,
   creatorContentType,
-} from "../redux/contentSlice";
-import { useDispatch, useSelector } from "react-redux";
+} from '../redux/contentSlice';
+import { useDispatch, useSelector } from 'react-redux';
 //custom components
-import CreatorContentCard from "../components/CreatorContentCard";
+import CreatorContentCard from '../components/CreatorContentCard';
 export interface CreatorProfileProps {
   route: CreatorProfileRouteProp;
 }
@@ -23,10 +23,16 @@ const CreatorProfile: React.SFC<CreatorProfileProps> = ({ route }) => {
   const cid = route.params.cid;
   const dispatch = useDispatch();
   const creator = useSelector(selectCreator);
+
   React.useEffect(() => {
     if (!creator.info) dispatch(getCreatorInfo({ cid }));
     if (!creator.content) dispatch(getCreatorContent({ cid }));
   }, []);
+
+  const _renderItem = ({ item }: { item: creatorContentType }) => (
+    <CreatorContentCard {...item}></CreatorContentCard>
+  );
+
   if (!creator.info || !creator.content)
     return (
       <View>
@@ -35,8 +41,15 @@ const CreatorProfile: React.SFC<CreatorProfileProps> = ({ route }) => {
     );
   return (
     <View style={styles.container}>
-      <CreatorInfo creatorInfo={creator.info}></CreatorInfo>
-      <CreatorContent creatorContent={creator.content}></CreatorContent>
+      <FlatList
+        data={creator.content}
+        keyExtractor={(content) => content.contentId}
+        renderItem={_renderItem}
+        ListHeaderComponent={() => (
+          <CreatorInfo creatorInfo={creator.info}></CreatorInfo>
+        )}
+        /* ListHeaderComponentStyle={styles} */
+      />
     </View>
   );
 };
@@ -44,7 +57,7 @@ const CreatorProfile: React.SFC<CreatorProfileProps> = ({ route }) => {
 export default CreatorProfile;
 
 export interface CreatorInfoProps {
-  creatorInfo: creatorInfoType;
+  creatorInfo: creatorInfoType | null;
 }
 
 const CreatorInfo: React.SFC<CreatorInfoProps> = ({ creatorInfo }) => {
@@ -63,14 +76,24 @@ const CreatorInfo: React.SFC<CreatorInfoProps> = ({ creatorInfo }) => {
     </View>
   );
 };
-
+/* 
 export interface CreatorContentProps {
   creatorContent: creatorContentType[];
 }
 
 const CreatorContent: React.SFC<CreatorContentProps> = ({ creatorContent }) => {
+  const _renderItem = ({ item }: { item: creatorContentType }) => (
+    <CreatorContentCard {...item}></CreatorContentCard>
+  );
+
   return (
     <View style={styles.container}>
+      <FlatList
+        data={creatorContent}
+        keyExtractor={(content) => content.contentId}
+        renderItem={_renderItem}
+      />
+
       {creatorContent.map((content) => {
         return (
           <CreatorContentCard
@@ -81,23 +104,23 @@ const CreatorContent: React.SFC<CreatorContentProps> = ({ creatorContent }) => {
       })}
     </View>
   );
-};
+}; */
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
   profileInfoContainer: {
-    flexDirection: "row",
-    backgroundColor: "#9FA8DA",
+    flexDirection: 'row',
+    backgroundColor: '#9FA8DA',
     padding: 30,
   },
-  textInfoContainer: { backgroundColor: "#9FA8DA" },
+  textInfoContainer: { backgroundColor: '#9FA8DA' },
   followingInfoContainer: {
     flex: 1,
   },
   cardsContainer: {
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   text: {
     fontSize: 20,
@@ -110,8 +133,8 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   logOutBtn: {
-    alignItems: "center",
-    backgroundColor: "orange",
+    alignItems: 'center',
+    backgroundColor: 'orange',
     padding: 10,
     borderRadius: 10,
   },

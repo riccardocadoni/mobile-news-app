@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { RootState } from "./store";
-import firebase from "../firebase";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { RootState } from './store';
+import firebase from '../firebase';
 
 //thunks
 
@@ -17,20 +17,20 @@ export const getCreatorContent = createAsyncThunk<
   {
     rejectValue: ErrorMessage;
   }
->("content/getCreatorContent", async ({ cid }, thunkApi) => {
+>('content/getCreatorContent', async ({ cid }, thunkApi) => {
   try {
     const dataSnap = await firebase
       .firestore()
-      .collection("content")
-      .where("creatorId", "==", cid)
-      .orderBy("createdAt", "desc")
-      .limit(3)
+      .collection('content')
+      .where('creatorId', '==', cid)
+      .orderBy('createdAt', 'desc')
+      .limit(5)
       .get();
 
     const res = dataSnap.docs.map((doc) => {
       return {
         ...doc.data(),
-        createdAt: JSON.stringify(doc.data().createdAt),
+        createdAt: JSON.stringify(doc.data().createdAt.toDate()),
         contentId: doc.id,
       };
     });
@@ -48,11 +48,11 @@ export const getCreatorInfo = createAsyncThunk<
   {
     rejectValue: ErrorMessage;
   }
->("content/getCreatorInfo", async ({ cid }, thunkApi) => {
+>('content/getCreatorInfo', async ({ cid }, thunkApi) => {
   try {
     const creatorSnap = await firebase
       .firestore()
-      .collection("creators")
+      .collection('creators')
       .doc(cid)
       .get();
     return { ...creatorSnap.data(), creatorId: creatorSnap.id };
@@ -90,7 +90,7 @@ interface initialContentState {
 }
 
 export const contentSlice = createSlice({
-  name: "content",
+  name: 'content',
   initialState: {
     creator: {
       info: null,

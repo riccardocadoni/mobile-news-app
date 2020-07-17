@@ -2,22 +2,22 @@ import {
   NavigationContainer,
   DefaultTheme,
   DarkTheme,
-} from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import * as React from "react";
-import { ColorSchemeName } from "react-native";
+} from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import * as React from 'react';
+import { ColorSchemeName } from 'react-native';
 
-import NotFoundScreen from "../screens/NotFoundScreen";
-import { RootStackParamList } from "../types";
-import BottomTabNavigator from "./BottomTabNavigator";
-import AuthProcess from "./AuthProcess";
-import LinkingConfiguration from "./LinkingConfiguration";
+import NotFoundScreen from '../screens/NotFoundScreen';
+import { RootStackParamList } from '../types';
+import BottomTabNavigator from './BottomTabNavigator';
+import AuthProcess from './AuthProcess';
+import LinkingConfiguration from './LinkingConfiguration';
 //redux
-import { useSelector } from "react-redux";
-import { selectAuthenticated, selectIsLoading } from "../redux/authSlice";
-import useFirebaseAuth from "../hooks/useFirebaseAuth";
+import { useSelector } from 'react-redux';
+import { selectAuthenticated, selectIsLoading } from '../redux/authSlice';
+import useFirebaseAuth from '../hooks/useFirebaseAuth';
 //custom component
-import Loading from "../components/Loading";
+import Loading from '../components/Loading';
 
 type NavigationProps = {
   colorScheme: ColorSchemeName;
@@ -28,7 +28,7 @@ const Navigation: React.FC<NavigationProps> = ({ colorScheme }) => {
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
-      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
     >
       <RootNavigator />
     </NavigationContainer>
@@ -57,7 +57,7 @@ function RootNavigator() {
       <Stack.Screen
         name="NotFound"
         component={NotFoundScreen}
-        options={{ title: "Oops!" }}
+        options={{ title: 'Oops!' }}
       />
     </Stack.Navigator>
   );
