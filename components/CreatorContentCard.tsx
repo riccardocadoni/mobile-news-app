@@ -1,15 +1,15 @@
-import * as React from 'react';
+import * as React from "react";
 import {
   View,
   Image,
   Text,
   StyleSheet,
   TouchableWithoutFeedback,
-} from 'react-native';
-import { creatorContentType } from '../redux/contentSlice';
-import TimeAgo from 'react-native-timeago';
+} from "react-native";
+import { CreatorContentType } from "../redux/contentSlice";
+import TimeAgo from "react-native-timeago";
 
-export interface CreatorContentCardProps extends creatorContentType {
+export interface CreatorContentCardProps extends CreatorContentType {
   // goCreatorProfile: (cid: string) => void;
 }
 const CreatorContentCard: React.SFC<CreatorContentCardProps> = ({
@@ -25,7 +25,7 @@ const CreatorContentCard: React.SFC<CreatorContentCardProps> = ({
 }) => {
   const pic = coverUrl
     ? { uri: coverUrl }
-    : require('../assets/images/favicon.png');
+    : require("../assets/images/favicon.png");
 
   return (
     <TouchableWithoutFeedback /*  onPress={() => goCreatorProfile(creatorId)} */
@@ -51,8 +51,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     margin: 5,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   imageProfile: {
     width: 90,
@@ -61,21 +61,21 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 15,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   date: {
     fontSize: 15,
   },
   imageContainer: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
     margin: 20,
   },
   dataContainer: {
-    textAlign: 'center',
+    textAlign: "center",
     margin: 10,
-    flexDirection: 'column',
-    justifyContent: 'space-around',
+    flexDirection: "column",
+    justifyContent: "space-around",
     flex: 3,
   },
 });

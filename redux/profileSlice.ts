@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 import firebase from "../firebase";
 //type
-import { creatorDataType } from "./contentSlice";
+import { CreatorInfoType } from "./contentSlice";
 
 //thunks
 
@@ -47,7 +47,7 @@ export const getFollowingData = createAsyncThunk<
 });
 
 interface initialProfileState {
-  following: creatorDataType[] | null;
+  following: CreatorInfoType[] | null;
   isLoading: boolean;
   errorMessage: string | null;
 }
@@ -65,7 +65,7 @@ export const profileSlice = createSlice({
       (state.isLoading = false), (state.following = payload);
     },
     [getFollowingData.rejected.type]: (state, { payload }) => {
-      (state.isLoading = false), (state.errorMessage = payload.payload);
+      (state.isLoading = false), (state.errorMessage = payload);
     },
     [getFollowingData.pending.type]: (state) => {
       state.isLoading = true;

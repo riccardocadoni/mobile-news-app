@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 import firebase from "../firebase";
 //type
-import { creatorDataType } from "./contentSlice";
+import { CreatorInfoType } from "./contentSlice";
 
 //thunks
 
@@ -36,7 +36,7 @@ export const getAllCreators = createAsyncThunk<
 });
 
 interface initialExploreState {
-  creators: creatorDataType[] | null;
+  creators: CreatorInfoType[] | null;
   isLoading: boolean;
   errorMessage: string | null;
 }
@@ -54,7 +54,7 @@ export const exploreSlice = createSlice({
       (state.isLoading = false), (state.creators = payload);
     },
     [getAllCreators.rejected.type]: (state, { payload }) => {
-      (state.isLoading = false), (state.errorMessage = payload.payload);
+      (state.isLoading = false), (state.errorMessage = payload);
     },
     [getAllCreators.pending.type]: (state) => {
       state.isLoading = true;
