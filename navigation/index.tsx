@@ -49,14 +49,28 @@ function RootNavigator() {
   if (isLoading) return <Loading></Loading>;
 
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: "#9FA8DA",
+        },
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontWeight: "bold",
+        },
+      }}
+    >
       {isLoggedIn ? (
         <React.Fragment>
-          <Stack.Screen name="TabNavigator" component={BottomTabNavigator} />
+          <Stack.Screen
+            name="TabNavigator"
+            component={BottomTabNavigator}
+            options={{ title: "Staging" }}
+          />
           <Stack.Screen
             name="CreatorProfile"
             component={CreatorProfile}
-            options={{ headerTitle: "CreatorProfile" }}
+            options={{ title: "CreatorProfile" }}
           />
         </React.Fragment>
       ) : (
