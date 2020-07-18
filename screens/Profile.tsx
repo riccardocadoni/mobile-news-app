@@ -77,8 +77,9 @@ const Following: React.SFC<FollowingProps> = ({ user, navigation }) => {
             creatorId={creator.creatorId}
             profilePic={creator.profilePic}
             goCreatorProfile={(cid: string) =>
-              navigation.navigate("CreatorProfile", {
-                cid: cid,
+              navigation.navigate("CreatorProfileNavigator", {
+                screen: "CreatorProfile",
+                params: { cid: cid },
               })
             }
           ></CreatorCard>

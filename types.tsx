@@ -26,7 +26,7 @@ export type ExploreParamList = {
 
 export type ProfileParamList = {
   Profile: undefined;
-  CreatorProfile: { cid: string };
+  CreatorProfileNavigator: any;
 };
 
 export type AuthParamList = {
