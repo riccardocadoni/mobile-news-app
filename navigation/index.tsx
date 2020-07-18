@@ -8,7 +8,7 @@ import * as React from "react";
 import { ColorSchemeName } from "react-native";
 
 import NotFoundScreen from "../screens/NotFoundScreen";
-import { RootStackParamList } from "../types";
+import { RootStackParamList, CreatorProfileParamList } from "../types";
 import BottomTabNavigator from "./BottomTabNavigator";
 import AuthProcess from "./AuthProcess";
 import LinkingConfiguration from "./LinkingConfiguration";
@@ -17,8 +17,9 @@ import { useSelector } from "react-redux";
 import { selectAuthenticated, selectIsLoading } from "../redux/authSlice";
 import useFirebaseAuth from "../hooks/useFirebaseAuth";
 //custom component
-import CreatorProfile from "../screens/CreatorProfile";
 import Loading from "../components/Loading";
+import CreatorProfile from "../screens/CreatorProfile";
+import ArticleVisualizer from "../screens/ArticleVisualizer";
 
 type NavigationProps = {
   colorScheme: ColorSchemeName;
@@ -68,9 +69,14 @@ function RootNavigator() {
             options={{ title: "Staging" }}
           />
           <Stack.Screen
-            name="CreatorProfile"
-            component={CreatorProfile}
+            name="CreatorProfileNavigator"
+            component={CreatorProfileNavigator}
             options={{ title: "CreatorProfile" }}
+          />
+          <Stack.Screen
+            name="ArticleVisualizer"
+            component={ArticleVisualizer}
+            options={{ title: "Article" }}
           />
         </React.Fragment>
       ) : (
@@ -82,5 +88,18 @@ function RootNavigator() {
         options={{ title: "Oops!" }}
       />
     </Stack.Navigator>
+  );
+}
+const CreatorProfileStack = createStackNavigator<CreatorProfileParamList>();
+
+function CreatorProfileNavigator() {
+  return (
+    <CreatorProfileStack.Navigator>
+      <CreatorProfileStack.Screen
+        name="CreatorProfile"
+        component={CreatorProfile}
+        options={{ headerTitle: "CreatorProfile" }}
+      />
+    </CreatorProfileStack.Navigator>
   );
 }

@@ -5,30 +5,47 @@ import {
   Text,
   StyleSheet,
   TouchableWithoutFeedback,
-} from "react-native";
+} from "react-native"; //type
+import { CreatorProfileNavigationProp } from "../types";
 import { CreatorContentType } from "../redux/contentSlice";
 import TimeAgo from "react-native-timeago";
 
 export interface CreatorContentCardProps extends CreatorContentType {
-  // goCreatorProfile: (cid: string) => void;
+  navigation: CreatorProfileNavigationProp;
 }
 const CreatorContentCard: React.SFC<CreatorContentCardProps> = ({
   content,
   coverUrl,
   createdAt,
+  editedAt,
   creatorId,
   creatorName,
   creatorPicUrl,
   contentId,
   title,
   type,
+  navigation,
 }) => {
   const pic = coverUrl
     ? { uri: coverUrl }
     : require("../assets/images/favicon.png");
 
   return (
-    <TouchableWithoutFeedback /*  onPress={() => goCreatorProfile(creatorId)} */
+    <TouchableWithoutFeedback
+      onPress={() =>
+        navigation.navigate("ArticleVisualizer", {
+          content,
+          coverUrl,
+          createdAt,
+          editedAt,
+          creatorId,
+          creatorName,
+          creatorPicUrl,
+          contentId,
+          title,
+          type,
+        })
+      }
     >
       <View style={styles.container}>
         <View style={styles.imageContainer}>

@@ -88,6 +88,7 @@ interface initialContentState {
     info: CreatorInfoType | null;
     content: CreatorContentType[] | null;
   };
+  content: CreatorContentType;
   isLoading: boolean;
   errorMessage: string | null;
 }

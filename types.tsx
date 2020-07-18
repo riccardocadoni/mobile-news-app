@@ -1,9 +1,10 @@
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RouteProp } from '@react-navigation/native';
-
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RouteProp } from "@react-navigation/native";
+import { CreatorContentType } from "./redux/contentSlice";
 export type RootStackParamList = {
   TabNavigator: undefined;
-  CreatorProfile: { cid: string };
+  CreatorProfileNavigator: { cid: string };
+  ArticleVisualizer: { contentId: string };
   Auth: undefined;
   NotFound: undefined;
 };
@@ -20,7 +21,7 @@ export type FeedParamList = {
 
 export type ExploreParamList = {
   Explore: undefined;
-  CreatorProfile: { cid: string };
+  CreatorProfileNavigator: any; // TODO: fix type { screen: string; params: { cid: string; }
 };
 
 export type ProfileParamList = {
@@ -31,17 +32,28 @@ export type ProfileParamList = {
 export type AuthParamList = {
   Auth: undefined;
 };
+export type CreatorProfileParamList = {
+  CreatorProfile: undefined;
+  ArticleVisualizer: CreatorContentType;
+};
 
 export type ProfileNavigationProp = StackNavigationProp<
   ProfileParamList,
-  'Profile'
+  "Profile"
 >;
-
 export type ExploreNavigationProp = StackNavigationProp<
   ExploreParamList,
-  'Explore'
+  "Explore"
+>;
+export type CreatorProfileNavigationProp = StackNavigationProp<
+  CreatorProfileParamList,
+  "CreatorProfile"
 >;
 export type CreatorProfileRouteProp = RouteProp<
   ExploreParamList,
-  'CreatorProfile'
+  "CreatorProfileNavigator"
+>;
+export type ArticleVisualizerRouteProp = RouteProp<
+  CreatorProfileParamList,
+  "ArticleVisualizer"
 >;

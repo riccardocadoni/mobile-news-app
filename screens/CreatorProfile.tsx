@@ -13,14 +13,20 @@ import {
   CreatorContentType,
 } from "../redux/contentSlice";
 import { useDispatch, useSelector } from "react-redux";
+//type
+import { CreatorProfileNavigationProp } from "../types";
 //custom components
 import Loading from "../components/Loading";
 import CreatorContentCard from "../components/CreatorContentCard";
 export interface CreatorProfileProps {
+  navigation: CreatorProfileNavigationProp;
   route: CreatorProfileRouteProp;
 }
 
-const CreatorProfile: React.SFC<CreatorProfileProps> = ({ route }) => {
+const CreatorProfile: React.SFC<CreatorProfileProps> = ({
+  route,
+  navigation,
+}) => {
   const cid = route.params.cid;
   const dispatch = useDispatch();
   const creator = useSelector(selectCreator);
@@ -36,7 +42,7 @@ const CreatorProfile: React.SFC<CreatorProfileProps> = ({ route }) => {
   }, []);
 
   const _renderItem = ({ item }: { item: CreatorContentType }) => (
-    <CreatorContentCard {...item}></CreatorContentCard>
+    <CreatorContentCard navigation={navigation} {...item}></CreatorContentCard>
   );
   if (isLoading) return <Loading></Loading>;
 
