@@ -6,7 +6,7 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
 } from "react-native"; //type
-import { CreatorProfileNavigationProp } from "../types";
+import { CreatorProfileNavigationProp, FeedNavigationProp } from "../types";
 import { CreatorContentType } from "../redux/contentSlice";
 import TimeAgo from "react-native-timeago";
 

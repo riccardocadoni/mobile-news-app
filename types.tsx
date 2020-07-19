@@ -17,6 +17,7 @@ export type BottomTabParamList = {
 
 export type FeedParamList = {
   Feed: undefined;
+  ArticleVisualizer: CreatorContentType;
 };
 
 export type ExploreParamList = {
@@ -54,6 +55,7 @@ export type CreatorProfileRouteProp = RouteProp<
   "CreatorProfileNavigator"
 >;
 export type ArticleVisualizerRouteProp = RouteProp<
-  CreatorProfileParamList,
+  CreatorProfileParamList | FeedParamList,
   "ArticleVisualizer"
 >;
+export type FeedNavigationProp = StackNavigationProp<FeedParamList, "Feed">;
