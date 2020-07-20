@@ -34,10 +34,7 @@ const Explore: React.SFC<ExploreProps> = ({ navigation }) => {
           profilePic={creator.profilePic}
           creatorId={creator.creatorId}
           goCreatorProfile={(cid: string) =>
-            navigation.navigate("CreatorProfileNavigator", {
-              screen: "CreatorProfile",
-              params: { cid: cid },
-            })
+            navigation.navigate("CreatorProfile", { cid: cid })
           }
         ></CreatorCard>
       ))}

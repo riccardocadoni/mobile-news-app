@@ -11,7 +11,7 @@ import { CreatorContentType } from "../redux/contentSlice";
 import TimeAgo from "react-native-timeago";
 
 export interface CreatorContentCardProps extends CreatorContentType {
-  navigation: CreatorProfileNavigationProp;
+  navigation: any; //CreatorProfileNavigationProp | FeedNavigationProp;
 }
 const CreatorContentCard: React.SFC<CreatorContentCardProps> = ({
   content,

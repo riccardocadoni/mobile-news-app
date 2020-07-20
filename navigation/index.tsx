@@ -69,8 +69,8 @@ function RootNavigator() {
             options={{ title: "Staging" }}
           />
           <Stack.Screen
-            name="CreatorProfileNavigator"
-            component={CreatorProfileNavigator}
+            name="CreatorProfile"
+            component={CreatorProfile}
             options={{ title: "CreatorProfile" }}
           />
           <Stack.Screen
@@ -88,18 +88,5 @@ function RootNavigator() {
         options={{ title: "Oops!" }}
       />
     </Stack.Navigator>
-  );
-}
-const CreatorProfileStack = createStackNavigator<CreatorProfileParamList>();
-
-function CreatorProfileNavigator() {
-  return (
-    <CreatorProfileStack.Navigator>
-      <CreatorProfileStack.Screen
-        name="CreatorProfile"
-        component={CreatorProfile}
-        options={{ headerTitle: "CreatorProfile" }}
-      />
-    </CreatorProfileStack.Navigator>
   );
 }

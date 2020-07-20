@@ -3,7 +3,7 @@ import { RouteProp } from "@react-navigation/native";
 import { CreatorContentType } from "./redux/contentSlice";
 export type RootStackParamList = {
   TabNavigator: undefined;
-  CreatorProfileNavigator: { cid: string };
+  CreatorProfile: { cid: string };
   ArticleVisualizer: { contentId: string };
   Auth: undefined;
   NotFound: undefined;
@@ -22,12 +22,12 @@ export type FeedParamList = {
 
 export type ExploreParamList = {
   Explore: undefined;
-  CreatorProfileNavigator: any; // TODO: fix type { screen: string; params: { cid: string; }
+  CreatorProfile: any; // TODO: fix type { screen: string; params: { cid: string; }
 };
 
 export type ProfileParamList = {
   Profile: undefined;
-  CreatorProfileNavigator: any;
+  CreatorProfile: any;
 };
 
 export type AuthParamList = {
@@ -52,7 +52,7 @@ export type CreatorProfileNavigationProp = StackNavigationProp<
 >;
 export type CreatorProfileRouteProp = RouteProp<
   ExploreParamList,
-  "CreatorProfileNavigator"
+  "CreatorProfile"
 >;
 export type ArticleVisualizerRouteProp = RouteProp<
   CreatorProfileParamList | FeedParamList,
