@@ -1,27 +1,27 @@
-import React, { useState } from "react";
-import { StyleSheet } from "react-native";
-
-import { TouchableOpacity, TextInput, ActivityIndicator } from "react-native";
-import { Text, View } from "../components/Themed";
-
 import {
-  logUserIn,
-  deleteErrorMessage,
-  selectErrorMessage,
-  selectIsLoading,
-} from "../redux/authSlice";
-import { useSelector, useDispatch } from "react-redux";
+  View,
+  ActivityIndicator,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
+import React, { useState } from "react";
+//types
+import { AuthNavigationProp } from "../types";
 
-export default function Login() {
+type SignUpProps = AuthNavigationProp<"SignUp">;
+
+const SignUp: React.SFC<SignUpProps> = ({ navigation }) => {
   const [email, setEmail] = useState<string>("");
   const [psw, setPsw] = useState<string>("");
-  const dispatch = useDispatch();
+  /* const dispatch = useDispatch();
   const errorMessage = useSelector(selectErrorMessage);
   const isLoading = useSelector(selectIsLoading);
-  const handleLogin = () => {
+  const handleSignUp = () => {
     dispatch(deleteErrorMessage());
     dispatch(logUserIn({ email, psw }));
-  };
+  };  */
 
   return (
     <View style={styles.container}>
@@ -41,14 +41,23 @@ export default function Login() {
         secureTextEntry={true}
         value={psw}
       />
-      {errorMessage && <Text style={styles.errorText}>{errorMessage}</Text>}
-      {isLoading && <ActivityIndicator></ActivityIndicator>}
-      <TouchableOpacity style={styles.createButton} onPress={handleLogin}>
-        <Text>Login</Text>
+      {/*  {errorMessage && <Text style={styles.errorText}>{errorMessage}</Text>}
+        {isLoading && <ActivityIndicator></ActivityIndicator>} */}
+      <TouchableOpacity style={styles.createButton}>
+        <Text>Sign In</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.createButton}
+        onPress={() => navigation.navigate("SignIn")}
+      >
+        <Text>Alreadt have an Account?</Text>
+        <Text>SIGN IN</Text>
       </TouchableOpacity>
     </View>
   );
-}
+};
+
+export default SignUp;
 
 const styles = StyleSheet.create({
   container: {

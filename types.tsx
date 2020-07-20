@@ -31,11 +31,17 @@ export type ProfileParamList = {
 };
 
 export type AuthParamList = {
-  Auth: undefined;
+  SignIn: undefined;
+  SignUp: undefined;
 };
 export type CreatorProfileParamList = {
   CreatorProfile: undefined;
   ArticleVisualizer: CreatorContentType;
+};
+
+export type AuthNavigationProp<T extends keyof AuthParamList> = {
+  navigation: StackNavigationProp<AuthParamList, T>;
+  route: RouteProp<AuthParamList, T>;
 };
 
 export type ProfileNavigationProp = StackNavigationProp<
