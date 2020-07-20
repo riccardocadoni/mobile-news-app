@@ -59,3 +59,9 @@ export type ArticleVisualizerRouteProp = RouteProp<
   "ArticleVisualizer"
 >;
 export type FeedNavigationProp = StackNavigationProp<FeedParamList, "Feed">;
+
+//generalize props and routes
+/* export type ProfileNavProps<T extends keyof ProfileParamList> = {
+  navigation: StackNavigationProp<ProfileParamList, T>;
+  route: RouteProp<ProfileParamList, T>;
+}; */

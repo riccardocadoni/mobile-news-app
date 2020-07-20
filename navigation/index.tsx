@@ -10,7 +10,7 @@ import { ColorSchemeName } from "react-native";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import { RootStackParamList, CreatorProfileParamList } from "../types";
 import BottomTabNavigator from "./BottomTabNavigator";
-import AuthProcess from "./AuthProcess";
+import AuthNavigator from "./AuthNavigator";
 import LinkingConfiguration from "./LinkingConfiguration";
 //redux
 import { useSelector } from "react-redux";
@@ -80,7 +80,7 @@ function RootNavigator() {
           />
         </React.Fragment>
       ) : (
-        <Stack.Screen name="Auth" component={AuthProcess} />
+        <Stack.Screen name="Auth" component={AuthNavigator} />
       )}
       <Stack.Screen
         name="NotFound"
