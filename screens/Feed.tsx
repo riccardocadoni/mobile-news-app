@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 //type
 import { FeedNavigationProp } from "../types";
 //custom component
-import CreatorContentCard from "../components/CreatorContentCard";
+import FeedCard from "../components/FeedCard";
 import Loading from "../components/Loading";
 
 export interface FeedProps {
@@ -34,7 +34,7 @@ const Feed: React.SFC<FeedProps> = ({ navigation }) => {
   }, []);
 
   const _renderItem = ({ item }: { item: CreatorContentType }) => (
-    <CreatorContentCard navigation={navigation} {...item}></CreatorContentCard>
+    <FeedCard navigation={navigation} {...item}></FeedCard>
   );
   if (isLoading) return <Loading></Loading>;
 
