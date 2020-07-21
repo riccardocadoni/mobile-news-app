@@ -9,6 +9,8 @@ import {
 import { FeedNavigationProp } from "../types";
 import { CreatorContentType } from "../redux/contentSlice";
 import TimeAgo from "react-native-timeago";
+import { regularFont, boldFont } from "../constants/Font";
+import { backgroundColor } from "../constants/Colors";
 
 export interface FeedCardProps extends CreatorContentType {
   navigation: FeedNavigationProp;
@@ -54,7 +56,7 @@ const FeedCard: React.SFC<FeedCardProps> = ({
         <View style={styles.infoCardContainer}>
           <View style={styles.infoCreatorContainer}>
             <Image source={creatorPic} style={styles.imageCreator} />
-            <Text style={styles.title}>{creatorName}</Text>
+            <Text style={styles.nameCreator}>{creatorName}</Text>
           </View>
           <Text style={styles.date}>
             <TimeAgo time={JSON.parse(createdAt)}></TimeAgo>
@@ -77,32 +79,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginHorizontal: 10,
-    marginBottom: 5,
+    marginTop: 15,
     justifyContent: "center",
+    borderRadius: 10,
+    backgroundColor: backgroundColor,
   },
   infoCardContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    margin: 5,
+    marginHorizontal: 15,
+    marginVertical: 15,
   },
   infoCreatorContainer: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-  },
-  imageContainer: {
-    flex: 1,
-    alignItems: "center",
-  },
-  dataContainer: {
-    textAlign: "center",
-    flex: 1,
-  },
-  image: {
-    width: "100%",
-    height: 200,
-    borderRadius: 10,
   },
   imageCreator: {
     width: 40,
@@ -110,13 +102,35 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     marginRight: 10,
   },
-  title: {
+  nameCreator: {
     fontSize: 18,
-    fontWeight: "bold",
-    margin: 4,
+    fontFamily: regularFont,
   },
   date: {
     fontSize: 15,
+    fontFamily: regularFont,
+  },
+  imageContainer: {
+    flex: 1,
+    alignItems: "center",
+    marginHorizontal: 15,
+  },
+  image: {
+    width: "100%",
+    height: 200,
+    borderRadius: 10,
+  },
+  dataContainer: {
+    textAlign: "center",
+    flex: 1,
+    marginHorizontal: 15,
+    marginVertical: 15,
+    marginTop: 5,
+  },
+  title: {
+    fontSize: 18,
+    fontFamily: boldFont,
+    margin: 4,
   },
 });
 

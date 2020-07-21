@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, Image, ActivityIndicator } from "react-native";
+import { StyleSheet, Image } from "react-native";
 import firebase from "../firebase";
 import { Text, View } from "../components/Themed";
 import { TouchableOpacity } from "react-native";
@@ -7,14 +7,10 @@ import { TouchableOpacity } from "react-native";
 import { ProfileNavigationProp } from "../types";
 //redux
 import { logUserOut } from "../redux/authSlice";
-import {
-  getFollowingData,
-  selectFollowing,
-  selectIsLoading,
-} from "../redux/profileSlice";
-import { useDispatch, useSelector } from "react-redux";
-//custom components
-import CreatorCard from "../components/CreatorCard";
+import { useDispatch } from "react-redux";
+import { regularFont, boldFont } from "../constants/Font";
+import { titleTextColor, backgroundColor } from "../constants/Colors";
+import Following from "../components/Following";
 
 export interface ProfileProps {
   navigation: ProfileNavigationProp;
@@ -28,94 +24,87 @@ const Profile: React.SFC<ProfileProps> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.profileInfoContainer}>
-        <Image source={{ uri: url }} style={styles.imageProfile} />
+        <View style={styles.imageContainer}>
+          <Image source={{ uri: url }} style={styles.imageProfile} />
+        </View>
         <View style={styles.textInfoContainer}>
-          <Text style={styles.text}>{user?.displayName}</Text>
-          <Text style={styles.text}>{user?.email}</Text>
-          <TouchableOpacity
-            style={styles.logOutBtn}
-            onPress={() => {
-              dispatch(logUserOut());
-            }}
-          >
-            <Text>LogOut</Text>
-          </TouchableOpacity>
+          <Text style={styles.textInfo}>{user?.displayName}</Text>
+          <Text style={styles.textInfo}>{user?.email}</Text>
         </View>
       </View>
-      <Following user={user} navigation={navigation}></Following>
+      <View style={styles.settingsContainer}>
+        <TouchableOpacity
+          style={styles.settingsButton}
+          onPress={() => {
+            dispatch(logUserOut());
+          }}
+        >
+          <Text>LogOut</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.followingContainer}>
+        <Following user={user} navigation={navigation}></Following>
+      </View>
     </View>
   );
 };
 
 export default Profile;
 
-export interface FollowingProps {
-  user: firebase.User | null;
-  navigation: ProfileNavigationProp;
-}
-
-const Following: React.SFC<FollowingProps> = ({ user, navigation }) => {
-  const dispatch = useDispatch();
-  const following = useSelector(selectFollowing);
-  const isLoading = useSelector(selectIsLoading);
-  const uid = user?.uid;
-
-  React.useEffect(() => {
-    if (!following) dispatch(getFollowingData({ uid }));
-  }, []);
-
-  return (
-    <View style={styles.followingInfoContainer}>
-      <Text style={styles.text}>Your Following: {following?.length}</Text>
-      <View style={styles.cardsContainer}>
-        {isLoading && <ActivityIndicator></ActivityIndicator>}
-        {following?.map((creator) => (
-          <CreatorCard
-            key={creator.creatorId}
-            firstName={creator.firstName}
-            lastName={creator.lastName}
-            creatorId={creator.creatorId}
-            profilePic={creator.profilePic}
-            goCreatorProfile={(cid: string) =>
-              navigation.navigate("CreatorProfile", { cid: cid })
-            }
-          ></CreatorCard>
-        ))}
-      </View>
-    </View>
-  );
-};
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
   profileInfoContainer: {
-    flexDirection: "row",
-    backgroundColor: "#9FA8DA",
-    padding: 30,
-  },
-  textInfoContainer: { backgroundColor: "#9FA8DA" },
-  followingInfoContainer: {
     flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
+  textInfoContainer: {
+    flex: 6,
+    alignItems: "flex-start",
+    justifyContent: "space-between",
+  },
+  textInfo: {
+    fontSize: 25,
+    fontFamily: regularFont,
+    color: titleTextColor,
+    margin: 5,
+  },
+  imageContainer: {
+    flex: 4,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  imageProfile: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+  },
+  followingContainer: {
+    flex: 3,
   },
   cardsContainer: {
     flexDirection: "row",
   },
   text: {
     fontSize: 20,
-    margin: 10,
+    fontFamily: boldFont,
+    color: titleTextColor,
+    margin: 5,
   },
-  imageProfile: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    margin: 20,
-  },
-  logOutBtn: {
+  settingsContainer: {
     alignItems: "center",
-    backgroundColor: "orange",
-    padding: 10,
-    borderRadius: 10,
+  },
+  settingsButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: backgroundColor,
+    borderWidth: 1,
+    borderColor: titleTextColor,
+    borderRadius: 5,
+    width: 150,
+    height: 30,
   },
 });

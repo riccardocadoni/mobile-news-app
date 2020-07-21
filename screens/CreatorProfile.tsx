@@ -18,6 +18,8 @@ import { CreatorProfileNavigationProp } from "../types";
 //custom components
 import Loading from "../components/Loading";
 import CreatorContentCard from "../components/CreatorContentCard";
+import { regularFont } from "../constants/Font";
+import { titleTextColor, backgroundColor } from "../constants/Colors";
 export interface CreatorProfileProps {
   navigation: CreatorProfileNavigationProp;
   route: CreatorProfileRouteProp;
@@ -78,12 +80,25 @@ const CreatorInfo: React.SFC<CreatorInfoProps> = ({ creatorInfo }) => {
     ? creatorInfo.profilePic
     : undefined;
   return (
-    <View style={styles.profileInfoContainer}>
-      <Image source={{ uri: url }} style={styles.imageProfile} />
-      <View style={styles.textInfoContainer}>
-        <Text style={styles.text}>{creatorInfo?.firstName}</Text>
-        <Text style={styles.text}>{creatorInfo?.lastName}</Text>
-        <Text style={styles.text}>follow</Text>
+    <View style={styles.creatorContainer}>
+      <View style={styles.profileInfoContainer}>
+        <View style={styles.imageContainer}>
+          <Image source={{ uri: url }} style={styles.imageProfile} />
+        </View>
+        <View style={styles.textInfoContainer}>
+          <Text style={styles.textInfo}>{creatorInfo?.firstName}</Text>
+          <Text style={styles.textInfo}>{creatorInfo?.lastName}</Text>
+          <View style={styles.followContainer}>
+            <TouchableOpacity
+              style={styles.followButton}
+              onPress={() => {
+                // dispatch(logUserOut());
+              }}
+            >
+              <Text>Follow</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
     </View>
   );
@@ -93,32 +108,56 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  profileInfoContainer: {
-    flexDirection: "row",
-    backgroundColor: "#9FA8DA",
-    padding: 30,
-  },
-  textInfoContainer: { backgroundColor: "#9FA8DA" },
-  followingInfoContainer: {
-    flex: 1,
-  },
-  cardsContainer: {
-    flexDirection: "row",
-  },
-  text: {
-    fontSize: 20,
+  creatorContainer: {
     margin: 10,
+    marginVertical: 15,
+    borderRadius: 20,
+    backgroundColor: backgroundColor,
+  },
+  profileInfoContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    marginTop: 20,
+    backgroundColor: backgroundColor,
+  },
+  textInfoContainer: {
+    flex: 1,
+    alignItems: "flex-start",
+    justifyContent: "space-between",
+    backgroundColor: backgroundColor,
+  },
+  textInfo: {
+    fontSize: 25,
+    fontFamily: regularFont,
+    color: titleTextColor,
+    margin: 5,
+  },
+  imageContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: backgroundColor,
   },
   imageProfile: {
     width: 100,
     height: 100,
     borderRadius: 50,
-    margin: 20,
   },
-  logOutBtn: {
+  followContainer: {
     alignItems: "center",
-    backgroundColor: "orange",
-    padding: 10,
-    borderRadius: 10,
+    backgroundColor: backgroundColor,
+  },
+  followButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: backgroundColor,
+    borderWidth: 1,
+    borderColor: titleTextColor,
+    borderRadius: 5,
+    width: 150,
+    height: 30,
+    marginVertical: 15,
   },
 });

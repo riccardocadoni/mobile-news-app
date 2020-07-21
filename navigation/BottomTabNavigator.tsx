@@ -1,4 +1,4 @@
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import * as React from "react";
@@ -23,14 +23,22 @@ export default function BottomTabNavigator() {
   return (
     <BottomTab.Navigator
       initialRouteName="Feed"
-      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}
+      tabBarOptions={{
+        activeTintColor: Colors[colorScheme].tint,
+        showLabel: false,
+      }}
     >
       <BottomTab.Screen
         name="Feed"
         component={FeedNavigator}
         options={{
           tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-code" color={color} />
+            <Ionicons
+              size={30}
+              style={{ marginBottom: -3 }}
+              name="md-home"
+              color={color}
+            />
           ),
         }}
       />
@@ -39,7 +47,7 @@ export default function BottomTabNavigator() {
         component={ExploreNavigator}
         options={{
           tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-code" color={color} />
+            <MaterialIcons name="explore" size={30} color={color} />
           ),
         }}
       />
@@ -48,7 +56,12 @@ export default function BottomTabNavigator() {
         component={ProfileNavigator}
         options={{
           tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-code" color={color} />
+            <Ionicons
+              size={30}
+              style={{ marginBottom: -3 }}
+              name="md-person"
+              color={color}
+            />
           ),
         }}
       />
@@ -58,9 +71,9 @@ export default function BottomTabNavigator() {
 
 // You can explore the built-in icon families and icons on the web at:
 // https://icons.expo.fyi/
-function TabBarIcon(props: { name: string; color: string }) {
+/* function TabBarIcon(props: { name: string; color: string }) {
   return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
-}
+} */
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab

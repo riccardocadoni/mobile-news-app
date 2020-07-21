@@ -6,6 +6,8 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
 } from "react-native";
+import { backgroundColor } from "../constants/Colors";
+import { regularFont } from "../constants/Font";
 
 export interface CreatorCardProps {
   firstName: string;
@@ -29,8 +31,13 @@ const CreatorCard: React.SFC<CreatorCardProps> = ({
   return (
     <TouchableWithoutFeedback onPress={() => goCreatorProfile(creatorId)}>
       <View style={styles.container}>
-        <Image source={pic} style={styles.imageProfile} />
-        <Text style={styles.text}>{firstName + " " + lastName}</Text>
+        <View style={styles.imageContainer}>
+          <Image source={pic} style={styles.imageProfile} />
+        </View>
+        <View style={styles.textContainer}>
+          <Text style={styles.text}>{firstName}</Text>
+          <Text style={styles.text}>{lastName}</Text>
+        </View>
       </View>
     </TouchableWithoutFeedback>
   );
@@ -38,18 +45,29 @@ const CreatorCard: React.SFC<CreatorCardProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "cyan",
+    backgroundColor: backgroundColor,
+    margin: 5,
+    borderRadius: 20,
+  },
+  imageContainer: {
+    alignItems: "center",
+    justifyContent: "center",
   },
   imageProfile: {
     width: 100,
     height: 100,
     borderRadius: 50,
-    margin: 20,
+    margin: 10,
+  },
+  textContainer: {
+    alignItems: "flex-start",
+    justifyContent: "center",
+    marginLeft: 15,
+    marginBottom: 15,
   },
   text: {
     fontSize: 20,
-    margin: 10,
+    fontFamily: regularFont,
   },
 });
 

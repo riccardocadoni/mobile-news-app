@@ -20,6 +20,8 @@ import useFirebaseAuth from "../hooks/useFirebaseAuth";
 import Loading from "../components/Loading";
 import CreatorProfile from "../screens/CreatorProfile";
 import ArticleVisualizer from "../screens/ArticleVisualizer";
+import { rootBackgroundColor, titleTextColor } from "../constants/Colors";
+import { boldFont } from "../constants/Font";
 
 type NavigationProps = {
   colorScheme: ColorSchemeName;
@@ -53,11 +55,12 @@ function RootNavigator() {
     <Stack.Navigator
       screenOptions={{
         headerStyle: {
-          backgroundColor: "#9FA8DA",
+          backgroundColor: rootBackgroundColor,
         },
-        headerTintColor: "#fff",
         headerTitleStyle: {
-          fontWeight: "bold",
+          fontSize: 25,
+          fontFamily: boldFont,
+          color: titleTextColor,
         },
       }}
     >

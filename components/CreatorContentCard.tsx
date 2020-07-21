@@ -9,6 +9,7 @@ import {
 import { CreatorProfileNavigationProp, FeedNavigationProp } from "../types";
 import { CreatorContentType } from "../redux/contentSlice";
 import TimeAgo from "react-native-timeago";
+import { backgroundColor } from "../constants/Colors";
 
 export interface CreatorContentCardProps extends CreatorContentType {
   navigation: CreatorProfileNavigationProp;
@@ -70,9 +71,11 @@ const styles = StyleSheet.create({
     margin: 5,
     flexDirection: "row",
     alignItems: "center",
+    backgroundColor: backgroundColor,
+    borderRadius: 20,
   },
   imageProfile: {
-    width: 90,
+    width: 100,
     height: 80,
     borderRadius: 10,
   },
