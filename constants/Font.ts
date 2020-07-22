@@ -1,2 +1,2 @@
-export const regularFont = "red-hat-regular";
-export const boldFont = "red-hat-bold";
+export const REGULAR_FONT = "red-hat-regular";
+export const BOLD_FONT = "red-hat-bold";

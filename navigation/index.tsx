@@ -20,8 +20,8 @@ import useFirebaseAuth from "../hooks/useFirebaseAuth";
 import Loading from "../components/Loading";
 import CreatorProfile from "../screens/CreatorProfile";
 import ArticleVisualizer from "../screens/ArticleVisualizer";
-import { rootBackgroundColor, titleTextColor } from "../constants/Colors";
-import { boldFont } from "../constants/Font";
+import { ROOT_BACKGROUND_COLOR, PRIMARY_COLOR } from "../constants/Colors";
+import { BOLD_FONT } from "../constants/Font";
 
 type NavigationProps = {
   colorScheme: ColorSchemeName;
@@ -55,12 +55,12 @@ function RootNavigator() {
     <Stack.Navigator
       screenOptions={{
         headerStyle: {
-          backgroundColor: rootBackgroundColor,
+          backgroundColor: ROOT_BACKGROUND_COLOR,
         },
         headerTitleStyle: {
           fontSize: 25,
-          fontFamily: boldFont,
-          color: titleTextColor,
+          fontFamily: BOLD_FONT,
+          color: PRIMARY_COLOR,
         },
       }}
     >
@@ -83,7 +83,11 @@ function RootNavigator() {
           />
         </React.Fragment>
       ) : (
-        <Stack.Screen name="Auth" component={AuthNavigator} />
+        <Stack.Screen
+          name="Auth"
+          component={AuthNavigator}
+          options={{ title: "Staging" }}
+        />
       )}
       <Stack.Screen
         name="NotFound"

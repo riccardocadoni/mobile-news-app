@@ -11,16 +11,8 @@ const AuthStack = createStackNavigator<AuthParamList>();
 export default function AuthNavigator() {
   return (
     <AuthStack.Navigator>
-      <AuthStack.Screen
-        name="SignIn"
-        component={SignIn}
-        options={{ headerTitle: "Login" }}
-      />
-      <AuthStack.Screen
-        name="SignUp"
-        component={SignUp}
-        options={{ headerTitle: "Login" }}
-      />
+      <AuthStack.Screen name="SignIn" component={SignIn} />
+      <AuthStack.Screen name="SignUp" component={SignUp} />
     </AuthStack.Navigator>
   );
 }

@@ -53,7 +53,13 @@ export const feedSlice = createSlice({
     isLoading: false,
     errorMessage: null,
   } as initialFeedState,
-  reducers: {},
+  reducers: {
+    reset: (state) => ({
+      feed: null,
+      isLoading: false,
+      errorMessage: null,
+    }),
+  },
   extraReducers: {
     [getFeed.fulfilled.type]: (state, { payload }) => {
       (state.isLoading = false), (state.feed = payload);
@@ -66,6 +72,9 @@ export const feedSlice = createSlice({
     },
   },
 });
+
+//reducers
+export const { reset } = feedSlice.actions;
 
 //selectors
 export const selectFeed = (state: RootState) => state.feed.feed;

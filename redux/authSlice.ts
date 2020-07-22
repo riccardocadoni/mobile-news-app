@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 import firebase from "../firebase";
+import { profileSlice } from "./profileSlice";
 
 //thunks
 
@@ -17,20 +18,60 @@ interface Credential {
   email: string;
   psw: string;
 }
+interface SignUpCredential {
+  email: string;
+  psw: string;
+  firstName: string;
+  lastName: string;
+}
 
-export const logUserIn = createAsyncThunk<
+export const signUserIn = createAsyncThunk<
   LoginReturn,
   Credential,
   {
     rejectValue: ErrorMessage;
   }
->("auth/login", async (credentials, thunkApi) => {
+>("auth/signIn", async (credentials, thunkApi) => {
   try {
     const response = await firebase
       .auth()
       .signInWithEmailAndPassword(credentials.email, credentials.psw);
 
     return response.user?.email;
+  } catch (error) {
+    return thunkApi.rejectWithValue(error.message);
+  }
+});
+export const signUserUp = createAsyncThunk<
+  LoginReturn,
+  SignUpCredential,
+  {
+    rejectValue: ErrorMessage;
+  }
+>("auth/signUp", async (credentials, thunkApi) => {
+  try {
+    const response = await firebase
+      .auth()
+      .createUserWithEmailAndPassword(credentials.email, credentials.psw)
+      .then((res) =>
+        firebase
+          .firestore()
+          .collection("users")
+          .doc(res.user.uid)
+          .set({
+            email: res.user.email,
+            firstName: credentials.firstName,
+            lastName: credentials.lastName,
+            contentCreator: false,
+          })
+          .then(() => {
+            res.user.updateProfile({
+              displayName: credentials.firstName + " " + credentials.lastName,
+            });
+          })
+      );
+
+    return response;
   } catch (error) {
     return thunkApi.rejectWithValue(error.message);
   }
@@ -68,13 +109,22 @@ export const authSlice = createSlice({
     },
   },
   extraReducers: {
-    [logUserIn.fulfilled.type]: (state) => {
+    [signUserIn.fulfilled.type]: (state) => {
       state.isLoading = false;
     },
-    [logUserIn.rejected.type]: (state, action) => {
+    [signUserIn.rejected.type]: (state, action) => {
       (state.isLoading = false), (state.errorMessage = action.payload);
     },
-    [logUserIn.pending.type]: (state) => {
+    [signUserIn.pending.type]: (state) => {
+      state.isLoading = true;
+    },
+    [signUserUp.fulfilled.type]: (state) => {
+      state.isLoading = false;
+    },
+    [signUserUp.rejected.type]: (state, action) => {
+      (state.isLoading = false), (state.errorMessage = action.payload);
+    },
+    [signUserUp.pending.type]: (state) => {
       state.isLoading = true;
     },
   },

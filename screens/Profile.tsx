@@ -8,8 +8,8 @@ import { ProfileNavigationProp } from "../types";
 //redux
 import { logUserOut } from "../redux/authSlice";
 import { useDispatch } from "react-redux";
-import { regularFont, boldFont } from "../constants/Font";
-import { titleTextColor, backgroundColor } from "../constants/Colors";
+import { REGULAR_FONT, BOLD_FONT } from "../constants/Font";
+import { PRIMARY_COLOR, BACKGROUND_COLOR } from "../constants/Colors";
 import Following from "../components/Following";
 
 export interface ProfileProps {
@@ -68,8 +68,8 @@ const styles = StyleSheet.create({
   },
   textInfo: {
     fontSize: 25,
-    fontFamily: regularFont,
-    color: titleTextColor,
+    fontFamily: REGULAR_FONT,
+    color: PRIMARY_COLOR,
     margin: 5,
   },
   imageContainer: {
@@ -90,8 +90,8 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
-    fontFamily: boldFont,
-    color: titleTextColor,
+    fontFamily: BOLD_FONT,
+    color: PRIMARY_COLOR,
     margin: 5,
   },
   settingsContainer: {
@@ -100,9 +100,9 @@ const styles = StyleSheet.create({
   settingsButton: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: backgroundColor,
+    backgroundColor: BACKGROUND_COLOR,
     borderWidth: 1,
-    borderColor: titleTextColor,
+    borderColor: PRIMARY_COLOR,
     borderRadius: 5,
     width: 150,
     height: 30,

@@ -18,8 +18,8 @@ import { CreatorProfileNavigationProp } from "../types";
 //custom components
 import Loading from "../components/Loading";
 import CreatorContentCard from "../components/CreatorContentCard";
-import { regularFont } from "../constants/Font";
-import { titleTextColor, backgroundColor } from "../constants/Colors";
+import { REGULAR_FONT } from "../constants/Font";
+import { PRIMARY_COLOR, BACKGROUND_COLOR } from "../constants/Colors";
 export interface CreatorProfileProps {
   navigation: CreatorProfileNavigationProp;
   route: CreatorProfileRouteProp;
@@ -37,7 +37,7 @@ const CreatorProfile: React.SFC<CreatorProfileProps> = ({
   React.useEffect(() => {
     if (!creator.info) dispatch(getCreatorInfo({ cid }));
     if (!creator.content) dispatch(getCreatorContent({ cid }));
-    if (creator.info?.creatorId !== cid) {
+    if (creator.info?.creatorId != null && creator.info?.creatorId !== cid) {
       dispatch(getCreatorInfo({ cid }));
       dispatch(getCreatorContent({ cid }));
     }
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     margin: 10,
     marginVertical: 15,
     borderRadius: 20,
-    backgroundColor: backgroundColor,
+    backgroundColor: BACKGROUND_COLOR,
   },
   profileInfoContainer: {
     flex: 1,
@@ -120,25 +120,25 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     marginTop: 20,
-    backgroundColor: backgroundColor,
+    backgroundColor: BACKGROUND_COLOR,
   },
   textInfoContainer: {
     flex: 1,
     alignItems: "flex-start",
     justifyContent: "space-between",
-    backgroundColor: backgroundColor,
+    backgroundColor: BACKGROUND_COLOR,
   },
   textInfo: {
     fontSize: 25,
-    fontFamily: regularFont,
-    color: titleTextColor,
+    fontFamily: REGULAR_FONT,
+    color: PRIMARY_COLOR,
     margin: 5,
   },
   imageContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: backgroundColor,
+    backgroundColor: BACKGROUND_COLOR,
   },
   imageProfile: {
     width: 100,
@@ -147,14 +147,14 @@ const styles = StyleSheet.create({
   },
   followContainer: {
     alignItems: "center",
-    backgroundColor: backgroundColor,
+    backgroundColor: BACKGROUND_COLOR,
   },
   followButton: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: backgroundColor,
+    backgroundColor: BACKGROUND_COLOR,
     borderWidth: 1,
-    borderColor: titleTextColor,
+    borderColor: PRIMARY_COLOR,
     borderRadius: 5,
     width: 150,
     height: 30,

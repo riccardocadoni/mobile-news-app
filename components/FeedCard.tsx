@@ -9,8 +9,8 @@ import {
 import { FeedNavigationProp } from "../types";
 import { CreatorContentType } from "../redux/contentSlice";
 import TimeAgo from "react-native-timeago";
-import { regularFont, boldFont } from "../constants/Font";
-import { backgroundColor } from "../constants/Colors";
+import { REGULAR_FONT, BOLD_FONT } from "../constants/Font";
+import { BACKGROUND_COLOR } from "../constants/Colors";
 
 export interface FeedCardProps extends CreatorContentType {
   navigation: FeedNavigationProp;
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     justifyContent: "center",
     borderRadius: 10,
-    backgroundColor: backgroundColor,
+    backgroundColor: BACKGROUND_COLOR,
   },
   infoCardContainer: {
     flexDirection: "row",
@@ -104,11 +104,11 @@ const styles = StyleSheet.create({
   },
   nameCreator: {
     fontSize: 18,
-    fontFamily: regularFont,
+    fontFamily: REGULAR_FONT,
   },
   date: {
     fontSize: 15,
-    fontFamily: regularFont,
+    fontFamily: REGULAR_FONT,
   },
   imageContainer: {
     flex: 1,
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    fontFamily: boldFont,
+    fontFamily: BOLD_FONT,
     margin: 4,
   },
 });

@@ -9,7 +9,8 @@ import {
 import { CreatorProfileNavigationProp, FeedNavigationProp } from "../types";
 import { CreatorContentType } from "../redux/contentSlice";
 import TimeAgo from "react-native-timeago";
-import { backgroundColor } from "../constants/Colors";
+import { BACKGROUND_COLOR } from "../constants/Colors";
+import { BOLD_FONT } from "../constants/Font";
 
 export interface CreatorContentCardProps extends CreatorContentType {
   navigation: CreatorProfileNavigationProp;
@@ -71,7 +72,7 @@ const styles = StyleSheet.create({
     margin: 5,
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: backgroundColor,
+    backgroundColor: BACKGROUND_COLOR,
     borderRadius: 20,
   },
   imageProfile: {
@@ -81,7 +82,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 15,
-    fontWeight: "bold",
+    fontFamily: BOLD_FONT,
   },
   date: {
     fontSize: 15,

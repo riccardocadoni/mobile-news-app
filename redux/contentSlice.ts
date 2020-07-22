@@ -88,7 +88,6 @@ interface initialContentState {
     info: CreatorInfoType | null;
     content: CreatorContentType[] | null;
   };
-  content: CreatorContentType;
   isLoading: boolean;
   errorMessage: string | null;
 }
@@ -103,7 +102,16 @@ export const contentSlice = createSlice({
     isLoading: false,
     errorMessage: null,
   } as initialContentState,
-  reducers: {},
+  reducers: {
+    reset: (state) => ({
+      creator: {
+        info: null,
+        content: null,
+      },
+      isLoading: false,
+      errorMessage: null,
+    }),
+  },
   extraReducers: {
     [getCreatorInfo.fulfilled.type]: (state, { payload }) => {
       (state.creator.info = payload), (state.isLoading = false);
@@ -128,6 +136,9 @@ export const contentSlice = createSlice({
     },
   },
 });
+
+//reducers
+export const { reset } = contentSlice.actions;
 
 //selectors
 export const selectCreator = (state: RootState) => state.content.creator;

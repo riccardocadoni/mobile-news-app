@@ -6,8 +6,8 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
 } from "react-native";
-import { backgroundColor } from "../constants/Colors";
-import { regularFont } from "../constants/Font";
+import { BACKGROUND_COLOR } from "../constants/Colors";
+import { REGULAR_FONT } from "../constants/Font";
 
 export interface CreatorCardProps {
   firstName: string;
@@ -45,7 +45,7 @@ const CreatorCard: React.SFC<CreatorCardProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: backgroundColor,
+    backgroundColor: BACKGROUND_COLOR,
     margin: 5,
     borderRadius: 20,
   },
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
-    fontFamily: regularFont,
+    fontFamily: REGULAR_FONT,
   },
 });
 

@@ -20,7 +20,7 @@ export const getFollowingData = createAsyncThunk<
   {
     rejectValue: ErrorMessage;
   }
->("following/get", async (credential, thunkApi) => {
+>("profile/getFollowing", async (credential, thunkApi) => {
   try {
     const response = await firebase
       .firestore()
@@ -28,6 +28,7 @@ export const getFollowingData = createAsyncThunk<
       .doc(credential.uid)
       .get();
     const followingIds: string[] = response.data()?.follow;
+    if (!followingIds) return null;
     const creatorsData = Promise.all(
       //for every id returns object with creator data
       followingIds.map(async (id: string) => {
@@ -59,7 +60,13 @@ export const profileSlice = createSlice({
     isLoading: false,
     errorMessage: null,
   } as initialProfileState,
-  reducers: {},
+  reducers: {
+    reset: (state) => ({
+      following: null,
+      isLoading: false,
+      errorMessage: null,
+    }),
+  },
   extraReducers: {
     [getFollowingData.fulfilled.type]: (state, { payload }) => {
       (state.isLoading = false), (state.following = payload);
@@ -72,6 +79,9 @@ export const profileSlice = createSlice({
     },
   },
 });
+
+//reducers
+export const { reset } = profileSlice.actions;
 
 //selectors
 export const selectFollowing = (state: RootState) => state.profile.following;

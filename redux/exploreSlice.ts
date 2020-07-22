@@ -48,7 +48,13 @@ export const exploreSlice = createSlice({
     isLoading: false,
     errorMessage: null,
   } as initialExploreState,
-  reducers: {},
+  reducers: {
+    reset: (state) => ({
+      creators: null,
+      isLoading: false,
+      errorMessage: null,
+    }),
+  },
   extraReducers: {
     [getAllCreators.fulfilled.type]: (state, { payload }) => {
       (state.isLoading = false), (state.creators = payload);
@@ -61,6 +67,9 @@ export const exploreSlice = createSlice({
     },
   },
 });
+
+//reducers
+export const { reset } = exploreSlice.actions;
 
 //selectors
 export const selectExplore = (state: RootState) => state.explore.creators;
