@@ -58,7 +58,7 @@ const Following: React.SFC<FollowingProps> = ({ user, navigation }) => {
         </>
       ) : (
         <Text style={styles.titleText}>
-          You have no following, take a look in the explore section!
+          You have no following, take a look at the explore section!
         </Text>
       )}
     </View>

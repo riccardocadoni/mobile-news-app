@@ -19,13 +19,15 @@ export interface ProfileProps {
 const Profile: React.SFC<ProfileProps> = ({ navigation }) => {
   const dispatch = useDispatch();
   const user = firebase.auth().currentUser;
-
-  const url: string | undefined = user?.photoURL ? user.photoURL : undefined;
+  //const url: string | undefined = user?.photoURL ? user.photoURL : undefined;
+  const pic = user?.photoURL
+    ? { uri: user?.photoURL }
+    : require("../assets/images/favicon.png"); //TODO : right placeholder
   return (
     <View style={styles.container}>
       <View style={styles.profileInfoContainer}>
         <View style={styles.imageContainer}>
-          <Image source={{ uri: url }} style={styles.imageProfile} />
+          <Image source={pic} style={styles.imageProfile} />
         </View>
         <View style={styles.textInfoContainer}>
           <Text style={styles.textInfo}>{user?.displayName}</Text>
