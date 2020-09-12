@@ -14,19 +14,17 @@ import { PRIMARY_COLOR } from "../constants/Colors";
 import Loading from "./Loading";
 
 export interface FollowingProps {
-  user: firebase.User | null;
   navigation: ProfileNavigationProp;
 }
 
-const Following: React.SFC<FollowingProps> = ({ user, navigation }) => {
+const Following: React.FC<FollowingProps> = ({  navigation }) => {
   const dispatch = useDispatch();
   const following = useSelector(selectFollowing);
   const isLoading = useSelector(selectIsLoading);
   const errorMessage = useSelector(selectErrorMessage);
-  const uid = user?.uid;
 
   React.useEffect(() => {
-    if (!following) dispatch(getFollowingData({ uid }));
+    if (!following) dispatch(getFollowingData({ }));
   }, []);
 
   if (isLoading) return <Loading></Loading>;

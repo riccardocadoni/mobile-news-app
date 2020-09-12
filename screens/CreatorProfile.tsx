@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, Image, ActivityIndicator } from "react-native";
+import { StyleSheet, Image, } from "react-native";
 import { Text, View } from "../components/Themed";
 import { TouchableOpacity, FlatList } from "react-native";
 import { CreatorProfileRouteProp } from "../types";
@@ -12,6 +12,7 @@ import {
   CreatorInfoType,
   CreatorContentType,
 } from "../redux/contentSlice";
+import {addNewFollow, selectFollowingIds} from "../redux/profileSlice";
 import { useDispatch, useSelector } from "react-redux";
 //type
 import { CreatorProfileNavigationProp } from "../types";
@@ -25,7 +26,7 @@ export interface CreatorProfileProps {
   route: CreatorProfileRouteProp;
 }
 
-const CreatorProfile: React.SFC<CreatorProfileProps> = ({
+const CreatorProfile: React.FC<CreatorProfileProps> = ({
   route,
   navigation,
 }) => {
@@ -74,7 +75,10 @@ export interface CreatorInfoProps {
   creatorInfo: CreatorInfoType | null;
 }
 
-const CreatorInfo: React.SFC<CreatorInfoProps> = ({ creatorInfo }) => {
+const CreatorInfo: React.FC<CreatorInfoProps> = ({ creatorInfo }) => {
+  const dispatch = useDispatch();
+  const followingIds = useSelector(selectFollowingIds);
+  const cid: string = creatorInfo.creatorId;
   //TODO: refactor profilePic to photoUrl for consistency
   const url: string | undefined = creatorInfo?.profilePic
     ? creatorInfo.profilePic
@@ -92,10 +96,10 @@ const CreatorInfo: React.SFC<CreatorInfoProps> = ({ creatorInfo }) => {
             <TouchableOpacity
               style={styles.followButton}
               onPress={() => {
-                // dispatch(logUserOut());
+                 dispatch(addNewFollow({creatorInfo,followingIds}));
               }}
             >
-              <Text>Follow</Text>
+              <Text>{followingIds.includes(cid) ? 'Unfollow' : 'Follow' }</Text>
             </TouchableOpacity>
           </View>
         </View>

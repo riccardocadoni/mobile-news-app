@@ -16,7 +16,7 @@ export interface ProfileProps {
   navigation: ProfileNavigationProp;
 }
 
-const Profile: React.SFC<ProfileProps> = ({ navigation }) => {
+const Profile: React.FC<ProfileProps> = ({ navigation }) => {
   const dispatch = useDispatch();
   const user = firebase.auth().currentUser;
   //const url: string | undefined = user?.photoURL ? user.photoURL : undefined;
@@ -45,7 +45,7 @@ const Profile: React.SFC<ProfileProps> = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <View style={styles.followingContainer}>
-        <Following user={user} navigation={navigation}></Following>
+        <Following  navigation={navigation}></Following>
       </View>
     </View>
   );

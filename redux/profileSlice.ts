@@ -10,22 +10,23 @@ interface ErrorMessage {
   errorMessage: string;
 }
 type LoginReturn = any;
-interface Credential {
-  uid: string | undefined;
+interface Parameters {
+  creatorInfo?: CreatorInfoType;
+  followingIds?: string[];
 }
 
 export const getFollowingData = createAsyncThunk<
   LoginReturn,
-  Credential,
+  Parameters,
   {
     rejectValue: ErrorMessage;
   }
->("profile/getFollowing", async (credential, thunkApi) => {
+>("profile/getFollowing", async (parameters, thunkApi) => {
   try {
     const response = await firebase
       .firestore()
       .collection("following")
-      .doc(credential.uid)
+      .doc(firebase.auth().currentUser.uid)
       .get();
     const followingIds: string[] = response.data()?.follow;
     if (!followingIds) return null;
@@ -47,8 +48,30 @@ export const getFollowingData = createAsyncThunk<
   }
 });
 
+export const addNewFollow = createAsyncThunk<
+  any,
+  Parameters,
+  {
+    rejectValue: ErrorMessage;
+  }
+>("profile/addFollow", async ({creatorInfo,followingIds}, thunkApi) => {
+  try {
+
+    const newFollowArray = [...followingIds,creatorInfo.creatorId]
+    await firebase
+      .firestore()
+      .collection("following")
+      .doc(firebase.auth().currentUser.uid)
+      .set({follow: newFollowArray})
+    
+    return creatorInfo
+  } catch (error) {
+    return thunkApi.rejectWithValue(error.message);
+  }
+});
+
 interface initialProfileState {
-  following: CreatorInfoType[] | null;
+  following: CreatorInfoType[] | null;  //change null to empty if no following is found, to be distinguished from the situation of no query called
   isLoading: boolean;
   errorMessage: string | null;
 }
@@ -77,6 +100,17 @@ export const profileSlice = createSlice({
     [getFollowingData.pending.type]: (state) => {
       state.isLoading = true;
     },
+    [addNewFollow.fulfilled.type]: (state, { payload }) => {
+      if(state.following) {
+        (state.isLoading = false), ( state.following.push(payload));
+      } else { (state.isLoading = false), (state.following = []) ,( state.following.push(payload));}
+    },
+    [addNewFollow.rejected.type]: (state, { payload }) => {
+      (state.isLoading = false), (state.errorMessage = payload);
+    },
+    [addNewFollow.pending.type]: (state) => {
+      state.isLoading = true;
+    },
   },
 });
 
@@ -85,6 +119,10 @@ export const { reset } = profileSlice.actions;
 
 //selectors
 export const selectFollowing = (state: RootState) => state.profile.following;
+export const selectFollowingIds = (state: RootState) : string[] => {
+  if(state.profile.following) return state.profile.following.map(follow => follow.creatorId)
+  else return []
+} ;
 export const selectErrorMessage = (state: RootState) =>
   state.profile.errorMessage;
 export const selectIsLoading = (state: RootState) => state.profile.isLoading;
