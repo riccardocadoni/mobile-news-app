@@ -70,8 +70,30 @@ export const addNewFollow = createAsyncThunk<
   }
 });
 
+export const deleteFollow = createAsyncThunk<
+  any,
+  Parameters,
+  {
+    rejectValue: ErrorMessage;
+  }
+>("profile/delFollow", async ({creatorInfo,followingIds}, thunkApi) => {
+  try {
+
+    const newFollowArray = followingIds.filter(item => item !== creatorInfo.creatorId)
+    await firebase
+      .firestore()
+      .collection("following")
+      .doc(firebase.auth().currentUser.uid)
+      .set({follow: newFollowArray})
+    
+    return creatorInfo
+  } catch (error) {
+    return thunkApi.rejectWithValue(error.message);
+  }
+});
+
 interface initialProfileState {
-  following: CreatorInfoType[] | null;  //change null to empty if no following is found, to be distinguished from the situation of no query called
+  following: CreatorInfoType[] | null;  
   isLoading: boolean;
   errorMessage: string | null;
 }
@@ -109,6 +131,18 @@ export const profileSlice = createSlice({
       (state.isLoading = false), (state.errorMessage = payload);
     },
     [addNewFollow.pending.type]: (state) => {
+      state.isLoading = true;
+    },
+    [deleteFollow.fulfilled.type]: (state, { payload }) => {
+      if(state.following) {
+        (state.isLoading = false), ( state.following = state.following.filter(item => item.creatorId !== payload?.creatorId)
+          );
+      } else { (state.isLoading = false);}
+    },
+    [deleteFollow.rejected.type]: (state, { payload }) => {
+      (state.isLoading = false), (state.errorMessage = payload);
+    },
+    [deleteFollow.pending.type]: (state) => {
       state.isLoading = true;
     },
   },

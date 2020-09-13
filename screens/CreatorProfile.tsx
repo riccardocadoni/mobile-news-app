@@ -12,7 +12,7 @@ import {
   CreatorInfoType,
   CreatorContentType,
 } from "../redux/contentSlice";
-import {addNewFollow, selectFollowingIds} from "../redux/profileSlice";
+import {addNewFollow, deleteFollow, selectFollowingIds} from "../redux/profileSlice";
 import { useDispatch, useSelector } from "react-redux";
 //type
 import { CreatorProfileNavigationProp } from "../types";
@@ -96,7 +96,7 @@ const CreatorInfo: React.FC<CreatorInfoProps> = ({ creatorInfo }) => {
             <TouchableOpacity
               style={styles.followButton}
               onPress={() => {
-                 dispatch(addNewFollow({creatorInfo,followingIds}));
+                followingIds.includes(cid) ? dispatch(deleteFollow({creatorInfo,followingIds})) : dispatch(addNewFollow({creatorInfo,followingIds}));
               }}
             >
               <Text>{followingIds.includes(cid) ? 'Unfollow' : 'Follow' }</Text>
