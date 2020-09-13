@@ -53,6 +53,8 @@ const Feed: React.SFC<FeedProps> = ({ navigation }) => {
         data={feed}
         keyExtractor={(content) => content.contentId}
         renderItem={_renderItem}
+        onRefresh={()=>dispatch(getFeed({}))}
+        refreshing={isLoading}
       />
     </View>
   );
