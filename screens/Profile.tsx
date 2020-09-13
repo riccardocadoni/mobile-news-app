@@ -11,6 +11,10 @@ import { useDispatch } from "react-redux";
 import { REGULAR_FONT, BOLD_FONT } from "../constants/Font";
 import { PRIMARY_COLOR, BACKGROUND_COLOR } from "../constants/Colors";
 import Following from "../components/Following";
+import { reset as resetContent } from "../redux/contentSlice";
+import { reset as resetFeed } from "../redux/feedSlice";
+import { reset as resetExplore } from "../redux/exploreSlice";
+import { reset as resetProfile } from "../redux/profileSlice";
 
 export interface ProfileProps {
   navigation: ProfileNavigationProp;
@@ -39,6 +43,10 @@ const Profile: React.FC<ProfileProps> = ({ navigation }) => {
           style={styles.settingsButton}
           onPress={() => {
             dispatch(logUserOut());
+            dispatch(resetContent())
+            dispatch(resetFeed())
+            dispatch(resetExplore())
+            dispatch(resetProfile())
           }}
         >
           <Text>LogOut</Text>

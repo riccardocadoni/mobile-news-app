@@ -16,6 +16,7 @@ import { FeedNavigationProp } from "../types";
 //custom component
 import FeedCard from "../components/FeedCard";
 import Loading from "../components/Loading";
+import { getFollowingData } from "../redux/profileSlice";
 
 export interface FeedProps {
   navigation: FeedNavigationProp;
@@ -30,6 +31,7 @@ const Feed: React.SFC<FeedProps> = ({ navigation }) => {
   React.useEffect(() => {
     if (!feed) {
       dispatch(getFeed({}));
+      dispatch(getFollowingData({ }))
     }
   }, []);
 
