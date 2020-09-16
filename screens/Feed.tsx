@@ -22,7 +22,7 @@ export interface FeedProps {
   navigation: FeedNavigationProp;
 }
 
-const Feed: React.SFC<FeedProps> = ({ navigation }) => {
+const Feed: React.FC<FeedProps> = ({ navigation }) => {
   const feed = useSelector(selectFeed);
   const isLoading = useSelector(selectIsLoading);
   const errorMessage = useSelector(selectErrorMessage);
