@@ -20,7 +20,7 @@ export default function useFirebaseAuth() {
           // User is signed in.
           dispatch(logIn());
         } else {
-          // No user is signed in.
+          // No user is signed in. TODO: check if remove resets here
           if (authenticated) {
             dispatch(logOut());
             dispatch(profileReset());

@@ -18,7 +18,7 @@ export interface CreatorCardProps {
   goCreatorProfile: (cid: string) => void;
 }
 
-const CreatorCard: React.SFC<CreatorCardProps> = ({
+const CreatorCard: React.FC<CreatorCardProps> = ({
   firstName,
   lastName,
   profilePic,

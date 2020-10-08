@@ -15,7 +15,7 @@ import { BACKGROUND_COLOR } from "../constants/Colors";
 export interface FeedCardProps extends CreatorContentType {
   navigation: FeedNavigationProp;
 }
-const FeedCard: React.SFC<FeedCardProps> = ({
+const FeedCard: React.FC<FeedCardProps> = ({
   content,
   coverUrl,
   createdAt,

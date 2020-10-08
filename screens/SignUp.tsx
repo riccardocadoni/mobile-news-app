@@ -107,7 +107,7 @@ const SignUp: React.SFC<SignUpProps> = ({ navigation }) => {
         }}
       >
         <Text style={styles.swapMethodText}>
-          Don't have an Account? SIGN IN
+          Already have an Account? SIGN IN
         </Text>
       </TouchableOpacity>
     </View>

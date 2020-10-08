@@ -15,7 +15,7 @@ import { BOLD_FONT } from "../constants/Font";
 export interface CreatorContentCardProps extends CreatorContentType {
   navigation: CreatorProfileNavigationProp;
 }
-const CreatorContentCard: React.SFC<CreatorContentCardProps> = ({
+const CreatorContentCard: React.FC<CreatorContentCardProps> = ({
   content,
   coverUrl,
   createdAt,

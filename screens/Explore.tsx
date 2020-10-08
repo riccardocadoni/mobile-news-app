@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, Button, ActivityIndicator } from "react-native";
+import { StyleSheet } from "react-native";
 import { Text, View } from "../components/Themed";
 import firebase from "../firebase";
 import Layout from "../constants/Layout";
@@ -25,7 +25,7 @@ export interface ExploreProps {
   navigation: ExploreNavigationProp;
 }
 
-const Explore: React.SFC<ExploreProps> = ({ navigation }) => {
+const Explore: React.FC<ExploreProps> = ({ navigation }) => {
   const dispatch = useDispatch();
   const creators = useSelector(selectExplore);
   const user = firebase.auth().currentUser;
