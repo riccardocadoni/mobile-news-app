@@ -1,6 +1,7 @@
 import * as React from "react";
 import { StyleSheet, ScrollView, View, Text } from "react-native";
 import getRNDraftJSBlocks from "react-native-draftjs-render";
+import { BOLD_FONT } from "../constants/Font";
 //types
 import { CreatorContentType } from "../redux/contentSlice";
 import { ArticleVisualizerRouteProp } from "../types";
@@ -10,7 +11,7 @@ export interface ArticleVisualizerProps extends CreatorContentType {
 }
 
 const ArticleVisualizer: React.FC<ArticleVisualizerProps> = ({ route }) => {
-  const { content } = route.params;
+  const { content, title } = route.params;
   if (!content)
     return (
       <View style={styles.container}>
@@ -21,7 +22,10 @@ const ArticleVisualizer: React.FC<ArticleVisualizerProps> = ({ route }) => {
   const blocks = getRNDraftJSBlocks({ contentState });
   return (
     <View style={styles.container}>
-      <ScrollView>{blocks}</ScrollView>
+      <ScrollView>
+      <Text style={styles.title}>{title}</Text>
+        {blocks}
+      </ScrollView>
     </View>
   );
 };
@@ -34,5 +38,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 10,
+  },
+  title: {
+    fontSize: 30,
+    fontFamily: BOLD_FONT,
+    marginBottom: 20,
   },
 });

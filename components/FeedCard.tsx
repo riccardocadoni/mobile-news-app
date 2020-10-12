@@ -30,10 +30,10 @@ const FeedCard: React.FC<FeedCardProps> = ({
 }) => {
   const pic = coverUrl
     ? { uri: coverUrl }
-    : require("../assets/images/favicon.png");
+    : require("../assets/images/placeholder.jpg");
   const creatorPic = creatorPicUrl
     ? { uri: creatorPicUrl }
-    : require("../assets/images/favicon.png"); //TODO placeolder
+    : require("../assets/images/placeholder_avatar.jpg"); //TODO placeolder
 
   return (
     <TouchableWithoutFeedback

@@ -99,7 +99,7 @@ export const contentSlice = createSlice({
       info: null,
       content: null,
     },
-    isLoading: false,
+    isLoading: true,
     errorMessage: null,
   } as initialContentState,
   reducers: {
@@ -108,7 +108,7 @@ export const contentSlice = createSlice({
         info: null,
         content: null,
       },
-      isLoading: false,
+      isLoading: true,
       errorMessage: null,
     }),
   },

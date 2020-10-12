@@ -30,7 +30,7 @@ const CreatorContentCard: React.FC<CreatorContentCardProps> = ({
 }) => {
   const pic = coverUrl
     ? { uri: coverUrl }
-    : require("../assets/images/favicon.png");
+    : require("../assets/images/placeholder_avatar.jpg");
 
   return (
     <TouchableWithoutFeedback

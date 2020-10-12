@@ -27,7 +27,7 @@ const CreatorCard: React.FC<CreatorCardProps> = ({
 }) => {
   const pic = profilePic
     ? { uri: profilePic }
-    : require("../assets/images/favicon.png");
+    : require("../assets/images/placeholder_avatar.jpg");
   return (
     <TouchableWithoutFeedback onPress={() => goCreatorProfile(creatorId)}>
       <View style={styles.container}>

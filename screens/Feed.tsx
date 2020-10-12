@@ -17,6 +17,8 @@ import { FeedNavigationProp } from "../types";
 import FeedCard from "../components/FeedCard";
 import Loading from "../components/Loading";
 import { getFollowingData } from "../redux/profileSlice";
+import { BOLD_FONT } from "../constants/Font";
+import { PRIMARY_COLOR } from "../constants/Colors";
 
 export interface FeedProps {
   navigation: FeedNavigationProp;
@@ -48,6 +50,9 @@ const Feed: React.FC<FeedProps> = ({ navigation }) => {
     );
   return (
     <View style={styles.container}>
+       { !feed?.length &&
+    <Text style={styles.text}>There is no content here, try following someone in the explore section! Then pull down to refresh.</Text>
+  }
       <FlatList
         style={styles.flatList}
         data={feed}
@@ -67,4 +72,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   flatList: {},
+  text: {
+    fontSize: 20,
+    fontFamily: BOLD_FONT,
+    color: PRIMARY_COLOR,
+    margin: 25,
+  },
 });

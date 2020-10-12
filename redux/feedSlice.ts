@@ -50,13 +50,13 @@ export const feedSlice = createSlice({
   name: "feed",
   initialState: {
     feed: null,
-    isLoading: false,
+    isLoading: true,
     errorMessage: null,
   } as initialFeedState,
   reducers: {
     reset: (state) => ({
       feed: null,
-      isLoading: false,
+      isLoading: true,
       errorMessage: null,
     }),
   },

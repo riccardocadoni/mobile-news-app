@@ -26,7 +26,7 @@ const Profile: React.FC<ProfileProps> = ({ navigation }) => {
   //const url: string | undefined = user?.photoURL ? user.photoURL : undefined;
   const pic = user?.photoURL
     ? { uri: user?.photoURL }
-    : require("../assets/images/favicon.png"); //TODO : right placeholder
+    : require("../assets/images/placeholder_avatar.jpg"); 
   return (
     <View style={styles.container}>
       <View style={styles.profileInfoContainer}>
